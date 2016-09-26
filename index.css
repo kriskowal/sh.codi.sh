@@ -1,0 +1,109 @@
+
+.display {
+    font-family: Monaco, monospace;
+    white-space: pre;
+}
+
+.readline {
+    font-family: Monaco, monospace;
+    white-space: pre;
+}
+
+.cursor {
+    color: white;
+    background-color: black;
+}
+
+.element {
+    border-left: solid white 3ex;
+    padding-right: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+}
+
+.element.active {
+    border-color: black;
+}
+
+.element.selected {
+    border-color: blue;
+}
+
+.element.selected.active {
+    border-color: darkblue;
+}
+
+.nonModeLine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    bottom: 40px;
+    z-index: 0;
+}
+
+.modeLine {
+    position: absolute;
+    overflow: hidden;
+    flex-wrap: nowrap;
+    height: 40px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+}
+
+.mode {
+    position: absolute;
+    font-size: 20px;
+    padding-left: 10px;
+    line-height: 40px;
+    height: 40px;
+    top: 40px;
+    left: 0;
+    right: 0;
+    transition: top 500ms;
+    -webkit-transition: top 500ms;
+    background-color: white;
+}
+
+.mode u, .mode i {
+}
+
+.mode.shown {
+    top: 0;
+}
+
+.button {
+    cursor: pointer;
+    border: 1px solid #777;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    white-space: nowrap;
+    background-color: white;
+}
+
+.arrayBox {
+    border: solid black 3px;
+}
+
+.objectBox {
+    border: solid black 3px;
+    border-radius: 1ex;
+}
+
+.keyHeader {
+}
+
+.valueHeader {
+}
+
+td, th {
+    text-align: left;
+    vertical-align: top;
+}

@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="extends" href="./readline">
+        <link rel="tag" href="gutentag/text.html">
+        <link rel="tag" href="gutentag/reveal.html">
+        <link rel="tag" href="gutentag/repeat.html">
+        <link rel="tag" href="./mode.html">
+    </head>
+    <body>
+        <div class="readline">
+            <text id="prefix"></text>
+            <span class="cursor"><text id="cursor"></text></span>
+            <text id="suffix"></text>
+        </div>
+        <mode id="mode">
+            <sp><strong>readline:</strong> </sp>
+            <sp><span class="button">^<u>A</u> to begin</span> </sp>
+            <sp><span class="button">to ^<u>E</u>nd</span> </sp>
+            <sp><span class="button">^<u>U</u>ndo before</span> </sp>
+            <sp><span class="button">^<u>K</u>ill after</span> </sp>
+            <sp><span class="button">^<u>B</u>ack</span> </sp>
+            <sp><span class="button">^<u>F</u>ore</span> </sp>
+            <sp><span class="button">⌥<u>B</u>ack word</span> </sp>
+            <sp><span class="button">⌥<u>F</u>ore word</span> </sp>
+        </mode>
+    </body>
+</html>

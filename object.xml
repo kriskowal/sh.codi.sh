@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <link rel="extends" href="./object"/>
+        <link rel="tag" href="gutentag/repeat.html"/>
+        <link rel="tag" href="gutentag/reveal.html"/>
+        <link rel="tag" href="gutentag/text.html"/>
+        <link rel="tag" href="./value.html"/>
+        <link rel="tag" href="./mode.html"/>
+        <link rel="tag" href="./readline.html"/>
+    </head>
+    <body>
+        <table id="objectBox" class="objectBox">
+            <tr><th class="element keyHeader"><em>key</em></th><th class="element valueHeader"><em>value</em></th></tr>
+            <reveal id="ifEmpty">
+                <tr class="element"><td colspan="2" id="emptyElement" class="element"><em>no entries</em></td></tr>
+            </reveal>
+            <repeat id="entries">
+                <tr id="entryBox" class="element">
+                    <th id="keyBox" class="element">
+                        <div class="display">
+                            <text id="key"></text>
+                        </div>
+                    </th>
+                    <td id="valueBox">
+                        <value id="value"></value>
+                    </td>
+                </tr>
+            </repeat>
+            <reveal id="ifNewEntry">
+                <tr id="entryBox" class="element">
+                    <th class="element">
+                        <readline id="newKey"></readline>
+                    </th>
+                    <td></td>
+                </tr>
+            </reveal>
+        </table>
+        <mode id="mode">
+            <sp><strong>object:</strong> </sp>
+            <sp><span class="button"><u>k</u> prev</span> </sp>
+            <sp><span class="button"><u>j</u> next</span> </sp>
+            <sp><span class="button"><u>d</u>elete</span> </sp>
+            <sp><span class="button"><u>s</u>et</span> </sp>
+            <sp><span class="button"><u>a</u>dd</span> </sp>
+        </mode>
+    </body>
+</html>
