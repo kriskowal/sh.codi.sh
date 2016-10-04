@@ -22,6 +22,7 @@ NumberView.prototype.hookup = function hookup(id, component, scope) {
         this.choose.value = 'dynamic';
     } else if (id === 'readline') {
         this.readline = component;
+        this.readline.parent = this;
     } else if (id === 'value') {
         this.static = component;
         component.value = this.value;
@@ -44,17 +45,15 @@ NumberView.prototype.draw = function draw() {
     this.static.value = this.value;
 };
 
-NumberView.prototype.enter = function enter(parent) {
+NumberView.prototype.enter = function enter() {
     if (this.value !== null) {
-        return this.reenter(parent);
+        return this.reenter();
     } else {
-        this.parent = parent;
-        return this.readline.enter(this);
+        return this.readline.enter();
     }
 };
 
-NumberView.prototype.reenter = function reenter(parent) {
-    this.parent = parent;
+NumberView.prototype.reenter = function reenter() {
     this.focus();
     return this;
 };
@@ -78,14 +77,14 @@ NumberView.prototype.returnFromReadline = function returnFromReadline(text, curs
 NumberView.prototype.KeyR = function replace() {
     this.choose.value = 'dynamic';
     this.parent.blurChild();
-    return this.readline.enter(this, '');
+    return this.readline.enter('');
 };
 
 NumberView.prototype.KeyC =
 NumberView.prototype.Enter = function enter() {
     this.choose.value = 'dynamic';
     this.parent.blurChild();
-    return this.readline.enter(this, '' + this.value);
+    return this.readline.enter('' + this.value);
 };
 
 NumberView.prototype.KeyH =

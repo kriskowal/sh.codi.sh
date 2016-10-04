@@ -22,6 +22,7 @@ ArrayView.prototype.hookup = function hookup(id, component, scope) {
         this.modeLine = scope.modeLine;
         this.resize();
     } else if (id === 'elements:iteration') {
+        scope.components.element.parent = this;
         scope.components.element.value = component.value;
     } else if (id === 'emptyElement') {
         this.emptyElement = component;
@@ -37,15 +38,9 @@ ArrayView.prototype.swap = function swap(index, minus, plus) {
     this.resize();
 };
 
-ArrayView.prototype.KeyL =
-ArrayView.prototype.Enter = function enter() {
-    this.blur();
-    return this.bounce();
-};
-
 ArrayView.prototype.bounce = function bounce() {
     if (this.cursor < this.elements.value.length) {
-        return this.elements.iterations[this.cursor].scope.components.element.reenter(this);
+        return this.elements.iterations[this.cursor].scope.components.element.reenter();
     } else {
         return this.empty();
     }
@@ -90,14 +85,35 @@ ArrayView.prototype.returnFromValue = function () {
     return this;
 };
 
+ArrayView.prototype.canPush = function canPush() {
+    return this;
+};
+
+ArrayView.prototype.push = function push() {
+    this.blurEmpty();
+    this.cursor = this.elements.value.length;
+    this.swap(this.elements.value.length, 0, 1);
+    return this.bounce();
+};
+
+ArrayView.prototype.canUnshift = function canUnshift() {
+    return this;
+};
+
+ArrayView.prototype.unshift = function unshift() {
+    this.blurEmpty();
+    this.cursor = 0;
+    this.swap(this.cursor, 0, 1);
+    return this.bounce();
+};
+
 ArrayView.prototype.canAppend = function canAppend() {
     return true;
 };
 
 ArrayView.prototype.append = function append() {
-    this.blurEmpty();
-    this.cursor = this.elements.value.length;
-    this.swap(this.elements.value.length, 0, 1);
+    this.cursor++;
+    this.swap(this.cursor, 0, 1);
     return this.bounce();
 };
 
@@ -106,36 +122,19 @@ ArrayView.prototype.canInsert = function canInsert() {
 };
 
 ArrayView.prototype.insert = function insert() {
-    this.blurEmpty();
-    this.cursor = 0;
     this.swap(this.cursor, 0, 1);
     return this.bounce();
 };
 
-// TODO
-ArrayView.prototype.Child_KeyA = function () {
-    this.cursor++;
-    this.swap(this.cursor, 0, 1);
+ArrayView.prototype.enter = function enter() {
     return this.bounce();
 };
 
-// TODO
-ArrayView.prototype.Child_KeyI = function () {
-    this.cursor = Math.max(0, this.cursor - 1);
-    return this.bounce();
-};
-ArrayView.prototype.Child_KeyI = function () {
-    this.swap(this.cursor, 0, 1);
-    return this.bounce();
+ArrayView.prototype.canReenter = function canReenter() {
+    return true;
 };
 
-ArrayView.prototype.enter = function enter(parent) {
-    this.parent = parent;
-    return this.bounce();
-};
-
-ArrayView.prototype.reenter = function reenter(parent) {
-    this.parent = parent;
+ArrayView.prototype.reenter = function reenter() {
     this.focus();
     return this;
 };
@@ -157,12 +156,30 @@ ArrayView.prototype.canDown = function canDown() {
     return true;
 };
 
-ArrayView.prototype.down = function () {
+ArrayView.prototype.down = function down() {
     if (this.cursor + 1 === this.elements.value.length) {
         // TODO consider up navigation
         return this.bounce();
     }
     this.cursor++;
+    return this.bounce();
+};
+
+ArrayView.prototype.canToTop = function canToTop() {
+    return true;
+};
+
+ArrayView.prototype.toTop = function toTop() {
+    this.cursor = 0;
+    return this.bounce();
+};
+
+ArrayView.prototype.canToBottom = function canToBottom() {
+    return true;
+};
+
+ArrayView.prototype.toBottom = function toBottom() {
+    this.cursor = Math.max(0, this.elements.value.length - 1);
     return this.bounce();
 };
 
@@ -183,6 +200,12 @@ ArrayView.prototype.return = function _return() {
     return this;
 };
 
+ArrayView.prototype.KeyL =
+ArrayView.prototype.Enter = function enter() {
+    this.blur();
+    return this.bounce();
+};
+
 function Empty(parent) {
     this.parent = parent;
 }
@@ -194,26 +217,12 @@ Empty.prototype.blur = function blur() {
     this.parent.blurEmpty();
 };
 
-Empty.prototype.canInsert = function canInsert() {
-    return true;
+Empty.prototype.KeyA = function append() {
+    this.blur();
+    return this.parent.push();
 };
 
-Empty.prototype.insert = function insert() {
-    return this.parent.insert();
-};
-
-Empty.prototype.canAppend = function canAppend() {
-    return true;
-};
-
-Empty.prototype.append = function append() {
-    return this.parent.append();
-};
-
-Empty.prototype.canUp = function canUp() {
-    return false;
-};
-
-Empty.prototype.canDown = function canDown() {
-    return false;
+Empty.prototype.KeyI = function insert() {
+    this.blur();
+    return this.parent.unshift();
 };

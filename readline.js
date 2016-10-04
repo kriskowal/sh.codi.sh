@@ -30,12 +30,11 @@ Readline.prototype.draw = function draw() {
 };
 
 // TODO thread read line label:
-Readline.prototype.enter = function enter(parent, text) {
+Readline.prototype.enter = function enter(text) {
     this.text = text || '';
     this.cursor = this.text.length;
     this.draw();
     this.modeLine.show(this.mode);
-    this.parent = parent;
     return this;
 };
 

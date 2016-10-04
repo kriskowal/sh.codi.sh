@@ -48,13 +48,44 @@ Child.prototype.KeyI = function insert() {
     return this;
 };
 
-// Shift_KeyA
-// Shift_KeyI
+Child.prototype.Shift_KeyA = function push() {
+    if (this.parent.canPush()) {
+        this.blur();
+        return this.parent.push();
+    }
+    return this;
+};
+
+Child.prototype.Shift_KeyI = function unshift() {
+    if (this.parent.canUnshift()) {
+        this.blur();
+        return this.parent.unshift();
+    }
+    return this;
+};
+
+Child.prototype.KeyG = function toTop() {
+    if (this.parent.canToTop()) {
+        this.blur();
+        return this.parent.toTop();
+    }
+    return this;
+};
+
+Child.prototype.Shift_KeyG = function toBottom() {
+    if (this.parent.canToBottom()) {
+        this.blur();
+        return this.parent.toBottom();
+    }
+    return this;
+};
+
+// Escape
+// Enter
+// KeyL
 // Ctrl_KeyU
 // Ctrl_KeyK
 // Backspace
 // Delete
 // Ctrl_KeyG
 // Shift_Ctrl_KeyG
-// Enter
-// Escape

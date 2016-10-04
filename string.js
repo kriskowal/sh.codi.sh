@@ -22,6 +22,7 @@ StringView.prototype.hookup = function hookup(id, component, scope) {
         this.choose.value = 'dynamic';
     } else if (id === 'readline') {
         this.readline = component;
+        this.readline.parent = this;
     } else if (id === 'value') {
         this.static = component;
         component.value = this.value;
@@ -44,17 +45,15 @@ StringView.prototype.draw = function draw() {
     this.static.value = this.value;
 };
 
-StringView.prototype.enter = function enter(parent) {
+StringView.prototype.enter = function enter() {
     if (this.value !== null) {
-        return this.reenter(parent);
+        return this.reenter();
     } else {
-        this.parent = parent;
-        return this.readline.enter(this);
+        return this.readline.enter();
     }
 };
 
-StringView.prototype.reenter = function reenter(parent) {
-    this.parent = parent;
+StringView.prototype.reenter = function reenter() {
     this.focus();
     return this;
 };
@@ -81,14 +80,14 @@ StringView.prototype.KeyL = function upper() {
 StringView.prototype.KeyR = function replace() {
     this.choose.value = 'dynamic';
     this.parent.blurChild();
-    return this.readline.enter(this, '');
+    return this.readline.enter('');
 };
 
 StringView.prototype.KeyC =
 StringView.prototype.Enter = function enter() {
     this.choose.value = 'dynamic';
     this.parent.blurChild();
-    return this.readline.enter(this, this.value);
+    return this.readline.enter(this.value);
 };
 
 StringView.prototype.KeyH =

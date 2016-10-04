@@ -15,8 +15,9 @@ Root.prototype.hookup = function hookup(id, component, scope) {
 
 Root.prototype.hookupThis = function hookupThis(scope) {
     this.root = scope.components.root;
+    this.root.parent = this;
     this.modeLine = scope.components.modeLine;
-    this.handler = this.root.enter(this);
+    this.handler = this.root.enter();
     window.addEventListener('keypress', this);
     window.addEventListener('keyup', this);
     window.addEventListener('keydown', this);
@@ -80,10 +81,14 @@ var alias = {
 };
 
 Root.prototype.delete = function _delete() {
-    return this.root.enter(this);
+    return this.root.enter();
 };
 
 Root.prototype.canReturn = function canReturn() {
+    return false;
+};
+
+Root.prototype.canReenter = function canReenter() {
     return false;
 };
 
@@ -99,7 +104,22 @@ Root.prototype.canInsert = function canInsert() {
     return false;
 };
 
+Root.prototype.canPush = function canPush() {
+    return false;
+};
+
+Root.prototype.canUnshift = function canUnshift() {
+    return false;
+};
+
 Root.prototype.canAppend = function canAppend() {
     return false;
 };
 
+Root.prototype.toTop = function toTop() {
+    return false;
+};
+
+Root.prototype.toBottom = function toBottom() {
+    return false;
+};
