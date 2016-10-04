@@ -5,27 +5,31 @@
         <link rel="tag" href="gutentag/text.html">
         <link rel="tag" href="gutentag/choose.html">
         <link rel="tag" href="gutentag/repeat.html">
-        <link rel="tag" href="./readline.html">
+        <link rel="tag" href="./string.html">
+        <link rel="tag" href="./number.html">
         <link rel="tag" href="./array.xml">
         <link rel="tag" href="./object.xml">
         <link rel="tag" href="./mode.html">
+        <meta accepts="[body]" as="parentMode">
     </head>
     <body>
         <div id="element" class="element">
             <choose id="type">
-                <display><span class="display"><text id="display"></span></display>
-                <readline><readline id="readline"></readline></readline>
-                <array><array id="array"></array></array>
-                <object><object id="object"></object></object>
+                <null><em>no value</em></null>
+                <number><number id="number"><parentMode></parentMode></number></number>
+                <string><string id="string"><parentMode></parentMode></string></string>
+                <array><array id="array"><parentMode></parentMode></array></array>
+                <object><object id="object"><parentMode></parentMode></object></object>
             </choose>
         </div>
         <mode id="mode">
             <sp><span class="button"><u>s</u>tring</span> </sp>
             <sp><span class="button"><u>n</u>umber</span> </sp>
             <sp><span class="button"><u>a</u>rray</span> </sp>
-            <sp><span class="button"><u>t</u>rue</span> </sp>
-            <sp><span class="button"><u>f</u>alse</span> </sp>
-            <sp><span class="button">n<u>u</u>ll</span> </sp>
+            <!-- <sp><span class="button"><u>o</u>bject</span> </sp> -->
+            <!-- <sp><span class="button"><u>t</u>rue</span> </sp> -->
+            <!-- <sp><span class="button"><u>f</u>alse</span> </sp> -->
+            <!-- <sp><span class="button">n<u>u</u>ll</span> </sp> -->
         </mode>
     </body>
 </html>

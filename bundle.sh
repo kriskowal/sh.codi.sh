@@ -26,8 +26,8 @@ function genroot() {
     # generates the root directory for delve build products.
     blob CNAME CNAME
     blob index.html bundle.html
-    blob index.css index.css
-    blob bundle.js <(bundle index.js)
+    blob index.css <(lessc index.less)
+    blob index.js <(bundle index.js)
 }
 
 OVERLAY=$(genroot | git mktree)

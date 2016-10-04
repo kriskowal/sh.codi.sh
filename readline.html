@@ -8,11 +8,11 @@
         <link rel="tag" href="./mode.html">
     </head>
     <body>
-        <div class="readline">
+        <span class="readline">
             <text id="prefix"></text>
             <span class="cursor"><text id="cursor"></text></span>
             <text id="suffix"></text>
-        </div>
+        </span>
         <mode id="mode">
             <sp><strong>readline:</strong> </sp>
             <sp><span class="button">^<u>A</u> to begin</span> </sp>
@@ -23,6 +23,9 @@
             <sp><span class="button">^<u>F</u>ore</span> </sp>
             <sp><span class="button">⌥<u>B</u>ack word</span> </sp>
             <sp><span class="button">⌥<u>F</u>ore word</span> </sp>
+        </mode>
+        <mode id="verbatim">
+            <strong>verbatim</strong>
         </mode>
     </body>
 </html>

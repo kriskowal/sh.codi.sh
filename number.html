@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="extends" href="./number">
+        <link rel="tag" href="gutentag/text.html">
+        <link rel="tag" href="gutentag/choose.html">
+        <link rel="tag" href="./readline.html">
+        <link rel="tag" href="./mode.html">
+        <meta accepts="[body]" as="argument">
+    </head>
+    <body>
+        <span class="number" id="element">
+            <choose id="choose">
+                <dynamic>
+                    <readline id="readline"></readline>
+                </dynamic>
+                <static>
+                    <text id="value"></text>
+                </static>
+            </choose>
+        </span>
+        <mode id="mode">
+            <sp><strong>number:</strong> </sp>
+            <sp><span class="button"><u>r</u>eplace</span> </sp>
+            <sp><span class="button"><u>c</u>hange</span> </sp>
+            <argument></argument>
+        </mode>
+    </body>
+</html>

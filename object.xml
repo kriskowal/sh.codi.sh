@@ -41,7 +41,8 @@
             <sp><span class="button"><u>j</u> next</span> </sp>
             <sp><span class="button"><u>d</u>elete</span> </sp>
             <sp><span class="button"><u>s</u>et</span> </sp>
-            <sp><span class="button"><u>a</u>dd</span> </sp>
+            <sp><span class="button"><u>⏎</u> edit</span> </sp>
+            <sp><span class="button"><u>⎋</u></span> </sp>
         </mode>
     </body>
 </html>

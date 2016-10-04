@@ -1,37 +1,54 @@
+@background: hsl(192, 25%, 13%);
+@foreground: hsl(192, 25%, 75%);
+@foreweight: bold;
+@active: hsl(192, 25%, 100%);
+@selected: hsl(132, 25%, 77%);
+@numbercolor: hsl(12, 61%, 50%);
+@stringcolor: @foreground;
+@monospace: Input, Monaco, monospace;
+@varispace: San Francisco, Lucida Grande, sans serif;
+
+body {
+    font-family: @varispace;
+    font-size: 20px;
+    background-color: @background;
+    color: @foreground;
+}
 
 .display {
-    font-family: Monaco, monospace;
+    font-family: @monospace;
     white-space: pre;
 }
 
 .readline {
-    font-family: Monaco, monospace;
+    font-family: @monospace;
     white-space: pre;
 }
 
 .cursor {
-    color: white;
-    background-color: black;
+    color: @background;
+    background-color: @foreground;
 }
 
 .element {
-    border-left: solid white 3ex;
-    padding-right: 2px;
+    border-left: solid @background 3ex;
+    padding-left: 4px;
+    padding-right: 4px;
     margin-top: 2px;
     margin-bottom: 2px;
     margin-left: 2px;
 }
 
 .element.active {
-    border-color: black;
+    border-color: @foreground;
 }
 
 .element.selected {
-    border-color: blue;
+    border-color: @selected;
 }
 
 .element.selected.active {
-    border-color: darkblue;
+    border-color: @active;
 }
 
 .nonModeLine {
@@ -59,7 +76,6 @@
 
 .mode {
     position: absolute;
-    font-size: 20px;
     padding-left: 10px;
     line-height: 40px;
     height: 40px;
@@ -68,7 +84,7 @@
     right: 0;
     transition: top 500ms;
     -webkit-transition: top 500ms;
-    background-color: white;
+    background-color: @background;
 }
 
 .mode u, .mode i {
@@ -80,20 +96,20 @@
 
 .button {
     cursor: pointer;
-    border: 1px solid #777;
+    border: 1px solid @foreground;
     border-radius: 5px;
     padding-left: 5px;
     padding-right: 5px;
     white-space: nowrap;
-    background-color: white;
+    background-color: @background;
 }
 
 .arrayBox {
-    border: solid black 3px;
+    border: solid @foreground 3px;
 }
 
 .objectBox {
-    border: solid black 3px;
+    border: solid @foreground 3px;
     border-radius: 1ex;
 }
 
@@ -106,4 +122,19 @@
 td, th {
     text-align: left;
     vertical-align: top;
+}
+
+u {
+    text-decoration: none;
+    color: @active;
+}
+
+.string {
+    color: @stringcolor;
+    // background-color: @stringbackground;
+}
+
+.number {
+    font-family: @monospace;
+    color: @numbercolor;
 }

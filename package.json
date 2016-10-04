@@ -5,9 +5,10 @@
     "xml": "gutentag/extension"
   },
   "devDependencies": {
+    "blick": "^1.1.0",
     "gutentag": "^2.1.1",
-    "system": "^1.0.6",
-    "blick": "^1.1.0"
+    "less": "^2.7.1",
+    "system": "^1.0.6"
   },
   "private": true
 }

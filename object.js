@@ -71,7 +71,7 @@ ObjectView.prototype.moveCursor = function (index) {
     this.activateIteration(this.cursor);
 };
 
-ObjectView.prototype.$KeyS = function () {
+ObjectView.prototype.KeyS = function () {
     this.ifEmpty.value = false;
     this.scope.components.ifNewEntry.value = true;
     this.blur();
@@ -112,29 +112,29 @@ SetMode.prototype.returnFromValue = function (value) {
     return this.parent.set(this.key, value);
 };
 
-ObjectView.prototype.$KeyG =
-ObjectView.prototype.$Ctrl$KeyA = function () {
+ObjectView.prototype.KeyG =
+ObjectView.prototype.Ctrl_KeyA = function () {
     this.moveCursor(0);
     return this;
 };
 
-ObjectView.prototype.$Shift$KeyG = 
-ObjectView.prototype.$Ctrl$KeyE = function () {
+ObjectView.prototype.Shift_KeyG =
+ObjectView.prototype.Ctrl_KeyE = function () {
     this.moveCursor(Math.max(0, this.entries.value.length - 1));
     return this;
 };
 
-ObjectView.prototype.$KeyJ = function () {
+ObjectView.prototype.KeyJ = function () {
     this.moveCursor((this.cursor + 1) % this.entries.value.length);
     return this;
 };
 
-ObjectView.prototype.$KeyK = function () {
+ObjectView.prototype.KeyK = function () {
     this.moveCursor((this.entries.value.length + this.cursor - 1) % this.entries.value.length);
     return this;
 };
 
-ObjectView.prototype.$KeyD = function () {
+ObjectView.prototype.KeyD = function () {
     var iteration = this.entries.iterations[this.cursor];
     if (iteration) {
         delete this.index['$' + iteration.value.key];
@@ -149,7 +149,7 @@ ObjectView.prototype.$KeyD = function () {
     return this;
 };
 
-ObjectView.prototype.$Enter = function () {
+ObjectView.prototype.Enter = function () {
     var iteration = this.entries.iterations[this.cursor];
     if (iteration) {
         this.blur();

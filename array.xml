@@ -5,31 +5,37 @@
         <link rel="tag" href="gutentag/reveal.html"/>
         <link rel="tag" href="./value.html"/>
         <link rel="tag" href="./mode.html"/>
+        <meta accepts="[body]" as="argument"/>
     </head>
     <body>
         <table id="elementsBox" class="arrayBox">
             <reveal id="ifEmpty">
                 <tr>
-                    <td id="emptyElement" class="element"><em>empty array</em></td>
+                    <td id="emptyElement" class="element">
+                        <em>empty array</em>
+                    </td>
                 </tr>
             </reveal>
             <repeat id="elements">
-                <tr>
-                    <td id="elementBox" class="element"><value id="element"></value></td>
-                </tr>
+                <tr><td><value id="element">
+                    <sp><strong>array:</strong> </sp>
+                    <sp><span class="button"><u>k</u> prev</span> </sp>
+                    <sp><span class="button"><u>j</u> next</span> </sp>
+                    <sp><span class="button"><u>a</u>dd</span> </sp>
+                    <sp><span class="button"><u>i</u>nsert</span> </sp>
+                    <!-- <sp><span class="button">⇧<u>a</u>ppend</span> </sp> -->
+                    <!-- <sp><span class="button">pre-⇧<u>i</u>nsert</span> </sp> -->
+                    <!-- <sp><span class="button"><u>d</u>elete</span> </sp> -->
+                    <!-- <sp><span class="button"><u>g</u>o to first</span> </sp> -->
+                    <!-- <sp><span class="button">⇧<u>g</u>o to last</span> </sp> -->
+                </value></td></tr>
             </repeat>
         </table>
-        <mode id="mode">
+        <mode id="emptyMode">
             <sp><strong>array:</strong> </sp>
-            <sp><span class="button"><u>k</u> prev</span> </sp>
-            <sp><span class="button"><u>j</u> next</span> </sp>
-            <sp><span class="button"><u>a</u>dd after</span> </sp>
-            <sp><span class="button"><u>i</u>nsert before</span> </sp>
-            <sp><span class="button">⇧<u>a</u>ppend</span> </sp>
-            <sp><span class="button">⇧<u>i</u>nsert first</span> </sp>
-            <sp><span class="button"><u>d</u>elete</span> </sp>
-            <sp><span class="button"><u>g</u>o to first</span> </sp>
-            <sp><span class="button">⇧<u>g</u>o to last</span> </sp>
+            <sp><span class="button"><u>a</u> append</span> </sp>
+            <sp><span class="button"><u>i</u> prepend</span> </sp>
+            <argument></argument>
         </mode>
     </body>
 </html>
