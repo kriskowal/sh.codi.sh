@@ -17,14 +17,17 @@ Value.prototype.hookup = function hookup(id, component, scope) {
         this.type.value = 'null';
     } else if (id === 'type:null') {
         this.component = null;
-    } else if (id === 'type:array') {
-        this.component = scope.components.array;
-        this.component.parent = this;
     } else if (id === 'type:string') {
         this.component = scope.components.string;
         this.component.parent = this;
     } else if (id === 'type:number') {
         this.component = scope.components.number;
+        this.component.parent = this;
+    } else if (id === 'type:boolean') {
+        this.component = scope.components.boolean;
+        this.component.parent = this;
+    } else if (id === 'type:array') {
+        this.component = scope.components.array;
         this.component.parent = this;
     } else if (id === 'type:object') {
         this.component = scope.components.object;
@@ -67,6 +70,20 @@ Value.prototype.KeyS = function () {
 Value.prototype.KeyN = function () {
     this.type.value = 'number';
     this.blur();
+    return this.component.enter();
+};
+
+Value.prototype.KeyT = function () {
+    this.type.value = 'boolean';
+    this.blur();
+    this.component.value = true;
+    return this.component.enter();
+};
+
+Value.prototype.KeyF = function () {
+    this.type.value = 'boolean';
+    this.blur();
+    this.component.value = false;
     return this.component.enter();
 };
 
