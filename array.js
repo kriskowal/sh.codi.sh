@@ -183,7 +183,7 @@ ArrayView.prototype.toBottom = function toBottom() {
     return this.bounce();
 };
 
-ArrayView.prototype.delete = function () {
+ArrayView.prototype.delete = function _delete() {
     this.swap(this.cursor, 1, 0);
     if (this.cursor > 0 && this.cursor >= this.elements.value.length) {
         this.cursor--;

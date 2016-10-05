@@ -150,8 +150,8 @@ Readline.prototype.Enter = function enter(label) {
     return this.return(this.text, this.cursor);
 };
 
-Readline.prototype.Escape = function enter() {
-    return this.return(null, null);
+Readline.prototype.Escape = function escape() {
+    return this.return(this.text, this.cursor);
 };
 
 Readline.prototype.swap = function swap(index, minus, plus) {

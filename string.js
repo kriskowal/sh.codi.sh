@@ -18,7 +18,6 @@ StringView.prototype.hookup = function hookup(id, component, scope) {
         this.choose = scope.components.choose;
         this.mode = scope.components.mode;
         this.modeLine = scope.modeLine;
-        this.element = scope.components.element;
         this.choose.value = 'dynamic';
     } else if (id === 'readline') {
         this.readline = component;
@@ -31,13 +30,13 @@ StringView.prototype.hookup = function hookup(id, component, scope) {
 
 StringView.prototype.focus = function focus() {
     this.parent.focusChild();
-    this.choose.value = 'static';
+    this.choose.value = this.value ? 'static' : 'null';
     this.modeLine.show(this.mode);
 };
 
 StringView.prototype.blur = function blur() {
     this.parent.blurChild();
-    this.choose.value = 'static';
+    this.choose.value = this.value ? 'static' : 'null';
     this.modeLine.hide(this.mode);
 };
 

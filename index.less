@@ -1,16 +1,16 @@
 @background: hsl(192, 25%, 13%);
 @foreground: hsl(192, 25%, 75%);
-@foreweight: bold;
 @active: hsl(192, 25%, 100%);
 @selected: hsl(132, 25%, 77%);
 @numbercolor: hsl(12, 61%, 50%);
+@keycolor: hsl(42, 61%, 50%);
 @stringcolor: @foreground;
 @monospace: Input, Monaco, monospace;
 @varispace: San Francisco, Lucida Grande, sans serif;
 
 body {
     font-family: @varispace;
-    font-size: 20px;
+    font-size: 12pt;
     background-color: @background;
     color: @foreground;
 }
@@ -104,6 +104,13 @@ body {
     background-color: @background;
 }
 
+.group {
+    border: 1px solid @foreground;
+    border-radius: 5px;
+    padding-left: 5px;
+    margin-left: 2.5px;
+}
+
 .arrayBox {
     border: solid @foreground 3px;
 }
@@ -111,6 +118,8 @@ body {
 .objectBox {
     border: solid @foreground 3px;
     border-radius: 1ex;
+    padding-left: 2.5px;
+    padding-right: 2.5px;
 }
 
 .keyHeader {
@@ -137,4 +146,8 @@ u {
 .number {
     font-family: @monospace;
     color: @numbercolor;
+}
+
+.key {
+    color: @keycolor;
 }

@@ -31,18 +31,23 @@ NumberView.prototype.hookup = function hookup(id, component, scope) {
 
 NumberView.prototype.focus = function focus() {
     this.parent.focusChild();
-    this.choose.value = 'static';
+    this.choose.value = this.value === this.value ? 'static' : 'null';
     this.modeLine.show(this.mode);
 };
 
 NumberView.prototype.blur = function blur() {
     this.parent.blurChild();
-    this.choose.value = 'static';
+    this.choose.value = this.value === this.value ? 'static' : 'null';
     this.modeLine.hide(this.mode);
 };
 
 NumberView.prototype.draw = function draw() {
-    this.static.value = this.value;
+    if (this.value === this.value) {
+        this.choose.value = 'static';
+        this.static.value = this.value;
+    } else {
+        this.choose.value = 'null';
+    }
 };
 
 NumberView.prototype.enter = function enter() {

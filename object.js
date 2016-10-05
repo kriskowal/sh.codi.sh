@@ -1,5 +1,7 @@
 'use strict';
 
+var Child = require('./child');
+
 module.exports = ObjectView;
 
 function ObjectView() {
@@ -8,24 +10,131 @@ function ObjectView() {
     this.parent = null;
 }
 
+ObjectView.prototype = Object.create(Child.prototype);
+ObjectView.prototype.constructor = ObjectView;
+
 ObjectView.prototype.hookup = function hookup(id, component, scope) {
     if (id === 'this') {
         this.entries = scope.components.entries;
         this.ifEmpty = scope.components.ifEmpty;
+        this.ifNewEntry = scope.components.ifNewEntry;
         this.mode = scope.components.mode;
         this.modeLine = scope.modeLine;
         this.resize();
     } else if (id === 'entries:iteration') {
         this.index['$' + component.value.key] = component;
         scope.components.key.value = component.value.key;
+        scope.components.key.parent = this;
         scope.components.value.value = component.value.value;
+        scope.components.value.parent = this;
+    } else if (id === 'emptyElement') {
+        this.emptyElement = component;
+    } else if (id === 'newKey') {
+        this.newKey = component;
+        this.newKey.parent = new NewEntry(this);
     }
 };
 
-ObjectView.prototype.enter = function enter(parent) {
-    this.parent = parent;
-    this.modeLine.show(this.mode);
-    this.activateIteration(this.cursor);
+ObjectView.prototype.bounce = function bounce() {
+    if (this.cursor < this.entries.iterations.length) {
+        return this.entries.iterations[this.cursor].scope.components.value.enter();
+    } else {
+        return this.empty();
+    }
+};
+
+ObjectView.prototype.enter = function enter() {
+    return this.bounce();
+};
+
+ObjectView.prototype.canReenter = function canReenter() {
+    return true;
+};
+
+ObjectView.prototype.reenter = function reenter() {
+    this.focus();
+    return this;
+};
+
+ObjectView.prototype.canUp = function canUp() {
+    return true;
+};
+
+ObjectView.prototype.up = function up() {
+    if (this.cursor === 0) {
+        // TODO consider up navigation
+        return this.bounce();
+    }
+    this.cursor--;
+    return this.bounce();
+};
+
+ObjectView.prototype.canDown = function canDown() {
+    return true;
+};
+
+ObjectView.prototype.down = function down() {
+    if (this.cursor + 1 === this.entries.value.length) {
+        // TODO consider up navigation
+        return this.bounce();
+    }
+    this.cursor++;
+    return this.bounce();
+};
+
+ObjectView.prototype.canToTop = function canToTop() {
+    return true;
+};
+
+ObjectView.prototype.toTop = function toTop() {
+    this.cursor = 0;
+    return this.bounce();
+};
+
+ObjectView.prototype.canToBottom = function canToBottom() {
+    return true;
+};
+
+ObjectView.prototype.toBottom = function toBottom() {
+    this.cursor = Math.max(0, this.entries.value.length - 1);
+    return this.bounce();
+};
+
+ObjectView.prototype.canAppend = function canAppend() {
+    return true;
+};
+
+ObjectView.prototype.canInsert = function canInsert() {
+    return false;
+};
+
+ObjectView.prototype.canPush = function canPush() {
+    return false;
+};
+
+ObjectView.prototype.canUnshift = function canUnshift() {
+    return false;
+};
+
+ObjectView.prototype.delete = function _delete() {
+    if (this.entries.value.length === 0) {
+        return this.empty();
+    }
+    delete this.index['$' + this.entries.value[this.cursor].key];
+    this.entries.value.swap(this.cursor, 1, 0);
+    if (this.cursor > 0 && this.cursor >= this.entries.value.length) {
+        this.cursor--;
+    }
+    this.resize();
+    return this.bounce();
+};
+
+ObjectView.prototype.canReturn = function canReturn() {
+    return true;
+};
+
+ObjectView.prototype.return = function _return() {
+    this.focus();
     return this;
 };
 
@@ -35,125 +144,82 @@ ObjectView.prototype.resize = function resize() {
 
 ObjectView.prototype.focus = function focus() {
     this.modeLine.show(this.mode);
-    this.activateIteration(this.cursor);
+    this.parent.focusChild();
 };
 
 ObjectView.prototype.blur = function hide() {
     this.modeLine.hide(this.mode);
-    this.deactivateIteration(this.cursor);
+    this.parent.blurChild();
 };
 
-ObjectView.prototype.activateIteration = function activateIteration(index) {
-    if (index < this.entries.value.length) {
-        this.entries.iterations[index].scope.components.keyBox.classList.add("active");
-    }
+ObjectView.prototype.empty = function empty() {
+    this.focusEmpty();
+    return new Empty(this);
 };
 
-ObjectView.prototype.deactivateIteration = function deactivateIteration(index) {
-    if (index < this.entries.value.length) {
-        this.entries.iterations[index].scope.components.keyBox.classList.remove("active");
-    }
-};
-
-ObjectView.prototype.focusIteration = function focusIteration(index) {
-    this.deactivateIteration(this.cursor);
-    var iteration = this.entries.iterations[index];
-    return iteration.scope.components.element.enter(this);
-};
-
-ObjectView.prototype.moveCursor = function (index) {
-    index = Math.min(Math.max(index, 0), this.entries.value.length);
-    if (this.cursor === index) {
-        return;
-    }
-    this.deactivateIteration(this.cursor);
-    this.cursor = index;
-    this.activateIteration(this.cursor);
-};
-
-ObjectView.prototype.KeyS = function () {
-    this.ifEmpty.value = false;
-    this.scope.components.ifNewEntry.value = true;
-    this.blur();
-    return this.scope.components.ifNewEntry.component.scope.components.newKey.enter(new NewKeyMode(this));
+ObjectView.prototype.append = function append() {
+    this.focusNewEntry();
+    return this.newKey.enter();
 };
 
 ObjectView.prototype.key = function key(key) {
-    this.scope.components.ifNewEntry.value = false;
-    if (!this.index['$' + key]) {
-        this.entries.value.push({
-            key: key,
-            value: null
-        });
+    this.blurNewEntry();
+    if (key === '') {
+        this.resize();
+        return this.bounce();
     }
-    return this.index['$' + key].scope.components.value.enter(new SetMode(this, key));
+    if (this.index['$' + key]) {
+        return this.index['$' + key].scope.components.value.reenter();
+    }
+    this.cursor = this.entries.value.length;
+    this.entries.value.push({
+        key: key,
+        value: null
+    }); // TODO model properly
+    this.resize();
+    return this.entries.iterations[this.cursor].scope.components.value.enter();
 };
 
-ObjectView.prototype.set = function set(key, value) {
-    this.focus();
-    this.moveCursor(this.index['$' + key].index);
-    return this;
-};
-
-function NewKeyMode(parent) {
+function NewEntry(parent) {
     this.parent = parent;
 }
 
-NewKeyMode.prototype.returnFromReadline = function (key) {
+NewEntry.prototype.returnFromReadline = function returnFromReadline(key) {
     return this.parent.key(key);
 };
 
-function SetMode(parent, key) {
+ObjectView.prototype.focusEmpty = function focusEmpty() {
+    this.modeLine.show(this.mode);
+    this.emptyElement.classList.add('active');
+};
+
+ObjectView.prototype.blurEmpty = function blurEmpty() {
+    this.modeLine.hide(this.mode);
+    this.emptyElement.classList.remove('active');
+};
+
+ObjectView.prototype.focusNewEntry = function focusNewEntry() {
+    this.ifEmpty.value = false;
+    this.ifNewEntry.value = true;
+};
+
+ObjectView.prototype.blurNewEntry = function blurNewEntry() {
+    this.ifNewEntry.value = false;
+};
+
+ObjectView.prototype.KeyL =
+ObjectView.prototype.Enter = function enter() {
+    this.blur();
+    return this.bounce();
+};
+
+function Empty(parent) {
     this.parent = parent;
-    this.key = key;
 }
 
-SetMode.prototype.returnFromValue = function (value) {
-    return this.parent.set(this.key, value);
-};
+Empty.prototype = Object.create(Child.prototype);
+Empty.prototype.constructor = Empty;
 
-ObjectView.prototype.KeyG =
-ObjectView.prototype.Ctrl_KeyA = function () {
-    this.moveCursor(0);
-    return this;
-};
-
-ObjectView.prototype.Shift_KeyG =
-ObjectView.prototype.Ctrl_KeyE = function () {
-    this.moveCursor(Math.max(0, this.entries.value.length - 1));
-    return this;
-};
-
-ObjectView.prototype.KeyJ = function () {
-    this.moveCursor((this.cursor + 1) % this.entries.value.length);
-    return this;
-};
-
-ObjectView.prototype.KeyK = function () {
-    this.moveCursor((this.entries.value.length + this.cursor - 1) % this.entries.value.length);
-    return this;
-};
-
-ObjectView.prototype.KeyD = function () {
-    var iteration = this.entries.iterations[this.cursor];
-    if (iteration) {
-        delete this.index['$' + iteration.value.key];
-        this.deactivateIteration(this.cursor);
-        this.entries.value.swap(this.cursor, 1, []);
-        this.resize();
-        if (this.cursor > 0 && this.cursor >= this.entries.value.length) {
-            this.cursor--;
-        }
-        this.activateIteration(this.cursor);
-    }
-    return this;
-};
-
-ObjectView.prototype.Enter = function () {
-    var iteration = this.entries.iterations[this.cursor];
-    if (iteration) {
-        this.blur();
-        return iteration.scope.components.value.enter(new SetMode(this, iteration.value.key));
-    }
-    return this;
+Empty.prototype.blur = function blur() {
+    this.parent.blurEmpty();
 };

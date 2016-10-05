@@ -7,28 +7,46 @@
         <link rel="tag" href="./value.html"/>
         <link rel="tag" href="./mode.html"/>
         <link rel="tag" href="./readline.html"/>
+        <meta accepts="[body]" as="argument"/>
     </head>
     <body>
         <table id="objectBox" class="objectBox">
-            <tr><th class="element keyHeader"><em>key</em></th><th class="element valueHeader"><em>value</em></th></tr>
+            <tr>
+                <th class="keyHeader"><em>key</em></th>
+                <th class="valueHeader element"><em>value</em></th>
+            </tr>
             <reveal id="ifEmpty">
-                <tr class="element"><td colspan="2" id="emptyElement" class="element"><em>no entries</em></td></tr>
+                <tr class="element">
+                    <td colspan="2" id="emptyElement" class="element">
+                        <em>no entries</em>
+                    </td>
+                </tr>
             </reveal>
             <repeat id="entries">
-                <tr id="entryBox" class="element">
-                    <th id="keyBox" class="element">
-                        <div class="display">
+                <tr id="entryBox">
+                    <th id="keyBox">
+                        <div class="display key">
                             <text id="key"></text>
                         </div>
                     </th>
                     <td id="valueBox">
-                        <value id="value"></value>
+                        <value id="value">
+                            <sp><strong>object:</strong> </sp>
+                            <sp><span class="button"><u>k</u> prev</span> </sp>
+                            <sp><span class="button"><u>j</u> next</span> </sp>
+                            <sp><span class="button"><u>a</u>dd</span> </sp>
+                            <sp><span class="button">⇧<u>a</u>ppend</span> </sp>
+                            <sp><span class="button">pre-⇧<u>i</u>nsert</span> </sp>
+                            <sp><span class="button"><u>d</u>elete</span> </sp>
+                            <sp><span class="button"><u>g</u>o to first</span> </sp>
+                            <sp><span class="button">⇧<u>g</u>o to last</span> </sp>
+                        </value>
                     </td>
                 </tr>
             </repeat>
             <reveal id="ifNewEntry">
-                <tr id="entryBox" class="element">
-                    <th class="element">
+                <tr id="entryBox">
+                    <th class="key display">
                         <readline id="newKey"></readline>
                     </th>
                     <td></td>
@@ -37,12 +55,10 @@
         </table>
         <mode id="mode">
             <sp><strong>object:</strong> </sp>
-            <sp><span class="button"><u>k</u> prev</span> </sp>
-            <sp><span class="button"><u>j</u> next</span> </sp>
-            <sp><span class="button"><u>d</u>elete</span> </sp>
-            <sp><span class="button"><u>s</u>et</span> </sp>
-            <sp><span class="button"><u>⏎</u> edit</span> </sp>
-            <sp><span class="button"><u>⎋</u></span> </sp>
+            <sp><span class="button"><u>a</u>dd</span> </sp>
+            <sp><span class="button"><u>l</u> <u>⏎</u></span> </sp>
+            <sp><span class="button"><u>h</u> <u>⎋</u></span> </sp>
+            <argument></argument>
         </mode>
     </body>
 </html>

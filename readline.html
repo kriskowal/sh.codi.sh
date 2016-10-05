@@ -15,14 +15,26 @@
         </span>
         <mode id="mode">
             <sp><strong>readline:</strong> </sp>
-            <sp><span class="button">^<u>A</u> to begin</span> </sp>
-            <sp><span class="button">to ^<u>E</u>nd</span> </sp>
-            <sp><span class="button">^<u>U</u>ndo before</span> </sp>
-            <sp><span class="button">^<u>K</u>ill after</span> </sp>
-            <sp><span class="button">^<u>B</u>ack</span> </sp>
-            <sp><span class="button">^<u>F</u>ore</span> </sp>
-            <sp><span class="button">⌥<u>B</u>ack word</span> </sp>
-            <sp><span class="button">⌥<u>F</u>ore word</span> </sp>
+            <sp> <span class="button">^<u>a</u> begin</span> </sp>
+            <sp> <span class="button">^<u>e</u>nd</span> </sp>
+            <span class="group">
+                <sp> erase <u>^</u> </sp>
+                <sp> <span class="button"><u>u</u>←</span> </sp>
+                <sp> <span class="button"><u>k</u>→</span></sp>
+            </span><sp> </sp>
+            <span class="group">
+                <sp> char <u>^</u> </sp>
+                <sp> <span class="button"><u>b</u>←</span> </sp>
+                <sp> <span class="button"><u>f</u>→</span></sp>
+            </span>
+            <span class="group">
+                <sp> word <u>⌥</u> </sp>
+                <sp> <span class="button"><u>b</u>←</span> </sp>
+                <sp> <span class="button"><u>f</u>→</span></sp>
+            </span><sp> </sp>
+            <sp> <span class="button"><u>^v</u>erbatim</span> </sp>
+            <sp> <span class="button"><u>⏎</u></span> </sp>
+            <sp> <span class="button"><u>⎋</u></span> </sp>
         </mode>
         <mode id="verbatim">
             <strong>verbatim</strong>

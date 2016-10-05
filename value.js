@@ -82,6 +82,7 @@ Value.prototype.KeyO = function () {
     return this.component.enter();
 };
 
+Value.prototype.KeyH =
 Value.prototype.Escape = function () {
     if (this.parent.canReturn()) {
         this.blur();

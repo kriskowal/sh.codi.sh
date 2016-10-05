@@ -9,16 +9,21 @@
         <meta accepts="[body]" as="argument">
     </head>
     <body>
-        <span class="string display" id="element">
-            <choose id="choose">
-                <dynamic>
+        <choose id="choose">
+            <null>
+                <em>empty string</em>
+            </null>
+            <dynamic>
+                <span class="string display">
                     <readline id="readline"></readline>
-                </dynamic>
-                <static>
+                </span>
+            </dynamic>
+            <static>
+                <span class="string display">
                     <text id="value"></text>
-                </static>
-            </choose>
-        </span>
+                </span>
+            </static>
+        </choose>
         <mode id="mode">
             <sp><strong>string:</strong> </sp>
             <sp><span class="button"><u>r</u>eplace</span> </sp>

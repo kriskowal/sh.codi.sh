@@ -9,15 +9,21 @@
         <meta accepts="[body]" as="argument">
     </head>
     <body>
-        <span class="number" id="element">
-            <choose id="choose">
-                <dynamic>
+        <choose id="choose">
+            <null>
+                <em>not a number</em>
+            </null>
+            <dynamic>
+                <span class="number">
                     <readline id="readline"></readline>
-                </dynamic>
-                <static>
+                </span>
+            </dynamic>
+            <static>
+                <span class="number">
                     <text id="value"></text>
-                </static>
-            </choose>
+                </span>
+            </static>
+        </choose>
         </span>
         <mode id="mode">
             <sp><strong>number:</strong> </sp>
