@@ -1,5 +1,7 @@
 'use strict';
 
+var Child = require('./child');
+
 module.exports = Value;
 
 function Value(body, scope) {
@@ -7,6 +9,9 @@ function Value(body, scope) {
     this.parent = null;
     this.component = null;
 }
+
+Value.prototype = Object.create(Child.prototype);
+Value.prototype.constructor = Value;
 
 Value.prototype.hookup = function hookup(id, component, scope) {
     if (id === 'this') {

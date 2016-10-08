@@ -37,7 +37,7 @@ ObjectView.prototype.hookup = function hookup(id, component, scope) {
 
 ObjectView.prototype.bounce = function bounce() {
     if (this.cursor < this.entries.iterations.length) {
-        return this.entries.iterations[this.cursor].scope.components.value.enter();
+        return this.entries.iterations[this.cursor].scope.components.value.reenter();
     } else {
         return this.empty();
     }
@@ -144,12 +144,12 @@ ObjectView.prototype.resize = function resize() {
 
 ObjectView.prototype.focus = function focus() {
     this.modeLine.show(this.mode);
-    this.parent.focusChild();
+    this.parent.focusChild(this);
 };
 
 ObjectView.prototype.blur = function hide() {
     this.modeLine.hide(this.mode);
-    this.parent.blurChild();
+    this.parent.blurChild(this);
 };
 
 ObjectView.prototype.empty = function empty() {
@@ -219,6 +219,10 @@ function Empty(parent) {
 
 Empty.prototype = Object.create(Child.prototype);
 Empty.prototype.constructor = Empty;
+
+Empty.prototype.Enter = function enter() {
+    return this.parent.append();
+};
 
 Empty.prototype.blur = function blur() {
     this.parent.blurEmpty();

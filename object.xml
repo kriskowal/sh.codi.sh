@@ -16,8 +16,10 @@
                 <th class="valueHeader element"><em>value</em></th>
             </tr>
             <reveal id="ifEmpty">
-                <tr class="element">
-                    <td colspan="2" id="emptyElement" class="element">
+                <tr>
+                    <th id="emptyElement" class="element">
+                    </th>
+                    <td class="valueBox element">
                         <em>no entries</em>
                     </td>
                 </tr>
@@ -29,14 +31,12 @@
                             <text id="key"></text>
                         </div>
                     </th>
-                    <td id="valueBox">
+                    <td id="valueBox" class="valueBox">
                         <value id="value">
                             <sp><strong>object:</strong> </sp>
                             <sp><span class="button"><u>k</u> prev</span> </sp>
                             <sp><span class="button"><u>j</u> next</span> </sp>
                             <sp><span class="button"><u>a</u>dd</span> </sp>
-                            <sp><span class="button">⇧<u>a</u>ppend</span> </sp>
-                            <sp><span class="button">pre-⇧<u>i</u>nsert</span> </sp>
                             <sp><span class="button"><u>d</u>elete</span> </sp>
                             <sp><span class="button"><u>g</u>o to first</span> </sp>
                             <sp><span class="button">⇧<u>g</u>o to last</span> </sp>
@@ -46,18 +46,17 @@
             </repeat>
             <reveal id="ifNewEntry">
                 <tr id="entryBox">
-                    <th class="key display">
+                    <th class="key display keyBox">
                         <readline id="newKey"></readline>
                     </th>
-                    <td></td>
+                    <td class="valueBox"></td>
                 </tr>
             </reveal>
         </table>
         <mode id="mode">
             <sp><strong>object:</strong> </sp>
-            <sp><span class="button"><u>a</u>dd</span> </sp>
-            <sp><span class="button"><u>l</u> <u>⏎</u></span> </sp>
-            <sp><span class="button"><u>h</u> <u>⎋</u></span> </sp>
+            <sp><span class="button"><u>⏎</u></span> </sp>
+            <sp><span class="button"><u>⎋</u></span> </sp>
             <argument></argument>
         </mode>
     </body>

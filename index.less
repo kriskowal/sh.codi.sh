@@ -102,13 +102,27 @@ body {
     padding-right: 5px;
     white-space: nowrap;
     background-color: @background;
+    color: @foreground;
 }
 
 .group {
     border: 1px solid @foreground;
+    background-color: @foreground;
+    color: @background;
     border-radius: 5px;
     padding-left: 5px;
     margin-left: 2.5px;
+}
+
+.group .button u {
+    color: @active;
+    background-color: @background;
+    font-weight: bold;
+}
+
+.group u {
+    color: @background;
+    background-color: @foreground;
 }
 
 .arrayBox {
@@ -126,6 +140,13 @@ body {
 }
 
 .valueHeader {
+    border-left: solid @foreground 1px;
+    padding-right: 2px;
+}
+
+.valueBox {
+    border-left: solid @foreground 1px;
+    padding-left: 2px;
 }
 
 td, th {
@@ -140,7 +161,6 @@ u {
 
 .string {
     color: @stringcolor;
-    // background-color: @stringbackground;
 }
 
 .number {
