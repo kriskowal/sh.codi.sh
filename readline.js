@@ -29,21 +29,32 @@ Readline.prototype.draw = function draw() {
     }
 };
 
+Readline.prototype.focus = function focus() {
+    this.modeLine.show(this.mode);
+    this.draw();
+};
+
+Readline.prototype.blur = function blur() {
+    this.modeLine.hide(this.mode);
+};
+
 // TODO thread read line label:
 Readline.prototype.enter = function enter(text) {
     this.text = text || '';
     this.cursor = this.text.length;
-    this.draw();
-    this.modeLine.show(this.mode);
+    this.focus();
     return this;
 };
 
 Readline.prototype.return = function _return(text, cursor) {
-    this.modeLine.hide(this.mode);
+    this.blur();
     return this.parent.returnFromReadline(text, cursor);
 };
 
 Readline.prototype.Tab = function tab() {
+    if (this.parent.canTab()) {
+        return this.return(this.text, this.cursor).tab();
+    }
     return this;
 };
 
@@ -207,6 +218,6 @@ Verbatim.prototype.handleEvent = function handleEvent(event, key, keyCode) {
 
 
 Verbatim.prototype.exit = function exit() {
-    this.parent.modeLine.hide(this.parent.verbatim);
+    this.blur();
     return this.parent;
 };

@@ -1,12 +1,13 @@
 'use strict';
 
+var model = require('./model');
 var Child = require('./child');
 
 module.exports = NumberView;
 
 function NumberView() {
     this.parent = null;
-    this.value = null;
+    this.value = new model.Model(null, new model.Number());
     this.readline = null;
 }
 
@@ -25,33 +26,33 @@ NumberView.prototype.hookup = function hookup(id, component, scope) {
         this.readline.parent = this;
     } else if (id === 'value') {
         this.static = component;
-        component.value = this.value;
+        component.value = this.value.value;
     }
 };
 
 NumberView.prototype.focus = function focus() {
     this.parent.focusChild();
-    this.choose.value = this.value === this.value ? 'static' : 'null';
+    this.choose.value = this.value.value === this.value.value ? 'static' : 'null';
     this.modeLine.show(this.mode);
 };
 
 NumberView.prototype.blur = function blur() {
     this.parent.blurChild();
-    this.choose.value = this.value === this.value ? 'static' : 'null';
+    this.choose.value = this.value.value === this.value.value ? 'static' : 'null';
     this.modeLine.hide(this.mode);
 };
 
 NumberView.prototype.draw = function draw() {
-    if (this.value === this.value) {
+    if (this.value.value === this.value.value) {
         this.choose.value = 'static';
-        this.static.value = this.value;
+        this.static.value = this.value.value;
     } else {
         this.choose.value = 'null';
     }
 };
 
 NumberView.prototype.enter = function enter() {
-    if (this.value !== null) {
+    if (this.value.value !== null) {
         return this.reenter();
     } else {
         return this.readline.enter();
@@ -65,13 +66,13 @@ NumberView.prototype.reenter = function reenter() {
 
 NumberView.prototype.returnFromReadline = function returnFromReadline(text, cursor) {
     if (text == null) {
-        if (this.value === null) {
+        if (this.value.value === null) {
             return this.parent.delete();
         } else if (this.parent.canReturn()) {
             return this.parent.return();
         }
     } else {
-        this.value = +text.replace(/,/g, '');
+        this.value.value = +text.replace(/,/g, '');
     }
     this.focus();
     this.parent.focusChild();
@@ -89,7 +90,7 @@ NumberView.prototype.KeyC =
 NumberView.prototype.Enter = function enter() {
     this.choose.value = 'dynamic';
     this.parent.blurChild();
-    return this.readline.enter('' + this.value);
+    return this.readline.enter('' + this.value.value);
 };
 
 NumberView.prototype.KeyH =
@@ -99,4 +100,22 @@ NumberView.prototype.Escape = function escape() {
         return this.parent.return();
     }
     return this;
+};
+
+NumberView.prototype.canTab = function canTab() {
+    return this.parent.canTab();
+};
+
+NumberView.prototype.tab = function tab() {
+    this.blur();
+    return this.parent.tab();
+};
+
+NumberView.prototype.canTabBack = function canTabBack() {
+    return this.parent.canTabBack();
+};
+
+NumberView.prototype.tabBack = function tabBack() {
+    this.blur();
+    return this.parent.tabBack();
 };

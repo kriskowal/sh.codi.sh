@@ -1,5 +1,6 @@
 'use strict';
 
+var model = require('./model');
 var Child = require('./child');
 
 module.exports = ObjectView;
@@ -162,6 +163,14 @@ ObjectView.prototype.append = function append() {
     return this.newKey.enter();
 };
 
+ObjectView.prototype.canTab = function canTab() {
+    return false; // TODO
+};
+
+ObjectView.prototype.canTabBack = function canTabBack() {
+    return false; // TODO
+};
+
 ObjectView.prototype.key = function key(key) {
     this.blurNewEntry();
     if (key === '') {
@@ -174,7 +183,7 @@ ObjectView.prototype.key = function key(key) {
     this.cursor = this.entries.value.length;
     this.entries.value.push({
         key: key,
-        value: null
+        value: new model.Model(null, model.any)
     }); // TODO model properly
     this.resize();
     return this.entries.iterations[this.cursor].scope.components.value.enter();

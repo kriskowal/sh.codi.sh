@@ -1,8 +1,14 @@
 'use strict';
 
+var Clip = require('./clip');
+var model = require('./model');
+
 module.exports = Root;
 
 function Root(body, scope) {
+    this.component = null;
+    this.modeLine = null;
+    this.handler = null;
 }
 
 Root.prototype.hookup = function hookup(id, component, scope) {
@@ -13,11 +19,21 @@ Root.prototype.hookup = function hookup(id, component, scope) {
     }
 };
 
+Object.defineProperty(Root.prototype, 'value', {
+    get: function getValue() {
+        return this.component.value;
+    },
+    set: function setValue(value) {
+        this.component.value = value;
+    }
+});
+
 Root.prototype.hookupThis = function hookupThis(scope) {
-    this.root = scope.components.root;
-    this.root.parent = this;
+    scope.root.clip = new Clip();
+    this.component = scope.components.component;
+    this.component.parent = this;
     this.modeLine = scope.components.modeLine;
-    this.handler = this.root.enter();
+    this.handler = this.component.enter();
     window.addEventListener('keypress', this);
     window.addEventListener('keyup', this);
     window.addEventListener('keydown', this);
@@ -81,7 +97,8 @@ var alias = {
 };
 
 Root.prototype.delete = function _delete() {
-    return this.root.enter();
+    this.value = new model.Model(null, model.any);
+    return this.component.enter();
 };
 
 Root.prototype.canReturn = function canReturn() {
@@ -116,10 +133,18 @@ Root.prototype.canAppend = function canAppend() {
     return false;
 };
 
-Root.prototype.toTop = function toTop() {
+Root.prototype.canToTop = function canToTop() {
     return false;
 };
 
-Root.prototype.toBottom = function toBottom() {
+Root.prototype.canToBottom = function canToBottom() {
+    return false;
+};
+
+Root.prototype.canTab = function canTab() {
+    return false;
+};
+
+Root.prototype.canTabBack = function canTabBack() {
     return false;
 };

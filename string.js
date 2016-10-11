@@ -1,12 +1,13 @@
 'use strict';
 
+var model = require('./model');
 var Child = require('./child');
 
 module.exports = StringView;
 
 function StringView() {
     this.parent = null;
-    this.value = null;
+    this.value = new model.Model(null, new model.String());
     this.readline = null;
 }
 
@@ -24,28 +25,28 @@ StringView.prototype.hookup = function hookup(id, component, scope) {
         this.readline.parent = this;
     } else if (id === 'value') {
         this.static = component;
-        component.value = this.value;
+        component.value = this.value.value;
     }
 };
 
 StringView.prototype.focus = function focus() {
     this.parent.focusChild();
-    this.choose.value = this.value ? 'static' : 'null';
+    this.choose.value = this.value.value ? 'static' : 'null';
     this.modeLine.show(this.mode);
 };
 
 StringView.prototype.blur = function blur() {
     this.parent.blurChild();
-    this.choose.value = this.value ? 'static' : 'null';
+    this.choose.value = this.value.value ? 'static' : 'null';
     this.modeLine.hide(this.mode);
 };
 
 StringView.prototype.draw = function draw() {
-    this.static.value = this.value;
+    this.static.value = this.value.value;
 };
 
 StringView.prototype.enter = function enter() {
-    if (this.value !== null) {
+    if (this.value.value !== null) {
         return this.reenter();
     } else {
         return this.readline.enter();
@@ -58,20 +59,20 @@ StringView.prototype.reenter = function reenter() {
 };
 
 StringView.prototype.returnFromReadline = function returnFromReadline(text, cursor) {
-    this.value = text;
+    this.value.value = text;
     this.focus();
     this.parent.focusChild();
     return this;
 };
 
 StringView.prototype.KeyU = function upper() {
-    this.value = this.value.toUpperCase();
+    this.value.value = this.value.value.toUpperCase();
     this.draw();
     return this;
 };
 
 StringView.prototype.KeyL = function upper() {
-    this.value = this.value.toLowerCase();
+    this.value.value = this.value.value.toLowerCase();
     this.draw();
     return this;
 };
@@ -86,7 +87,7 @@ StringView.prototype.KeyC =
 StringView.prototype.Enter = function enter() {
     this.choose.value = 'dynamic';
     this.parent.blurChild();
-    return this.readline.enter(this.value);
+    return this.readline.enter(this.value.value);
 };
 
 StringView.prototype.KeyH =
@@ -97,3 +98,22 @@ StringView.prototype.Escape = function escape() {
     }
     return this;
 };
+
+StringView.prototype.canTab = function canTab() {
+    return this.parent.canTab();
+};
+
+StringView.prototype.tab = function tab() {
+    this.blur();
+    return this.parent.tab();
+};
+
+StringView.prototype.canTabBack = function canTabBack() {
+    return this.parent.canTabBack();
+};
+
+StringView.prototype.tabBack = function tabBack() {
+    this.blur();
+    return this.parent.tabBack();
+};
+

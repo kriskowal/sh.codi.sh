@@ -80,6 +80,27 @@ Child.prototype.Shift_KeyG = function toBottom() {
     return this;
 };
 
+Child.prototype.Tab = function tab() {
+    if (this.parent.canTab()) {
+        this.blur();
+        return this.parent.tab();
+    }
+    return this;
+};
+
+Child.prototype.Shift_Tab = function tabBack() {
+    if (this.parent.canTabBack()) {
+        this.blur();
+        return this.parent.tabBack();
+    }
+    return this;
+};
+
+Child.prototype.KeyY = function yank() {
+    this.scope.clip.set(this.value);
+    return this;
+};
+
 // Escape
 // Enter
 // KeyL

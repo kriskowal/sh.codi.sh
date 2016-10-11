@@ -1,11 +1,12 @@
 'use strict';
 
+var model = require('./model');
 var Child = require('./child');
 
 module.exports = BooleanView;
 
 function BooleanView() {
-    this._value = false;
+    this._value = new model.Model(false, model.boolean);
     this.parent = null;
 }
 
@@ -31,7 +32,7 @@ Object.defineProperty(BooleanView.prototype, 'value', {
 });
 
 BooleanView.prototype.draw = function draw() {
-    this.choose.value = this._value ? 'true' : 'false';
+    this.choose.value = this._value.value ? 'true' : 'false';
 };
 
 BooleanView.prototype.enter = function enter() {
@@ -50,18 +51,21 @@ BooleanView.prototype.blur = function blur() {
 };
 
 BooleanView.prototype.KeyT = function _true() {
-    this.value = true;
+    this.value.value = true;
+    this.draw();
     return this;
 };
 
 BooleanView.prototype.KeyF = function _false() {
-    this.value = false;
+    this.value.value = false;
+    this.draw();
     return this;
 };
 
 BooleanView.prototype.Shift_Digit1 =
 BooleanView.prototype.Space =
 BooleanView.prototype.KeyN = function negate() {
-    this.value = !this.value;
+    this.value.value = !this.value.value;
+    this.draw();
     return this;
 };

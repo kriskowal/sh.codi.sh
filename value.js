@@ -1,11 +1,12 @@
 'use strict';
 
+var model = require('./model');
 var Child = require('./child');
 
 module.exports = Value;
 
 function Value(body, scope) {
-    this.value = null;
+    this._value = new model.Model(null, model.any);
     this.parent = null;
     this.component = null;
 }
@@ -13,30 +14,49 @@ function Value(body, scope) {
 Value.prototype = Object.create(Child.prototype);
 Value.prototype.constructor = Value;
 
+Object.defineProperty(Value.prototype, 'value', {
+    get: function getValue() {
+        return this._value;
+    },
+    set: function setValue(value) {
+        this._value = value;
+        this.view.value = value.model.view;
+        if (this.component) {
+            this.component.value = value;
+        }
+    }
+});
+
 Value.prototype.hookup = function hookup(id, component, scope) {
     if (id === 'this') {
         this.mode = scope.components.mode;
         this.modeLine = scope.modeLine;
         this.element = scope.components.element;
-        this.type = scope.components.type;
-        this.type.value = 'null';
-    } else if (id === 'type:null') {
+        this.view = scope.components.view;
+    } else if (id === 'view:any') {
         this.component = null;
-    } else if (id === 'type:string') {
+    } else if (id === 'view:null') {
+        this.component = null;
+    } else if (id === 'view:string') {
         this.component = scope.components.string;
         this.component.parent = this;
-    } else if (id === 'type:number') {
+        this.component.value = this.value;
+    } else if (id === 'view:number') {
         this.component = scope.components.number;
         this.component.parent = this;
-    } else if (id === 'type:boolean') {
+        this.component.value = this.value;
+    } else if (id === 'view:boolean') {
         this.component = scope.components.boolean;
         this.component.parent = this;
-    } else if (id === 'type:array') {
+        this.component.value = this.value;
+    } else if (id === 'view:array') {
         this.component = scope.components.array;
         this.component.parent = this;
-    } else if (id === 'type:object') {
+        this.component.value = this.value;
+    } else if (id === 'view:object') {
         this.component = scope.components.object;
         this.component.parent = this;
+        this.component.value = this.value;
     }
 };
 
@@ -67,39 +87,44 @@ Value.prototype.bounce = function bounce() {
 };
 
 Value.prototype.KeyS = function () {
-    this.type.value = 'string';
+    this.value = new model.Model(null, model.string);
     this.blur();
     return this.component.enter();
 };
 
 Value.prototype.KeyN = function () {
-    this.type.value = 'number';
+    this.value = new model.Model(null, model.number);
     this.blur();
     return this.component.enter();
 };
 
 Value.prototype.KeyT = function () {
-    this.type.value = 'boolean';
+    this.value = new model.Model(true, model.boolean);
     this.blur();
-    this.component.value = true;
     return this.component.enter();
 };
 
 Value.prototype.KeyF = function () {
-    this.type.value = 'boolean';
+    this.value = new model.Model(false, model.boolean);
     this.blur();
-    this.component.value = false;
     return this.component.enter();
 };
 
 Value.prototype.KeyA = function () {
-    this.type.value = 'array';
+    this.value = new model.Model([], model.array);
+    this.blur();
+    return this.component.enter();
+};
+
+// TODO parameterize array and object/map types
+Value.prototype.Shift_KeyA = function () {
+    this.value = new model.Model([], new model.Array(model.string));
     this.blur();
     return this.component.enter();
 };
 
 Value.prototype.KeyO = function () {
-    this.type.value = 'object';
+    this.view.value = 'object';
     this.blur();
     return this.component.enter();
 };
@@ -111,6 +136,12 @@ Value.prototype.Escape = function () {
         return this.parent.return();
     }
     return this;
+};
+
+Value.prototype.KeyP = function () {
+    this.value = this.scope.clip.get();
+    this.blur();
+    return this.bounce();
 };
 
 Value.prototype.blurChild = function () {
@@ -205,7 +236,29 @@ Value.prototype.toBottom = function toBottom() {
     return this.parent.toBottom();
 };
 
+Value.prototype.canTab = function canTab() {
+    return this.parent.canTab();
+};
+
+Value.prototype.tab = function tab() {
+    return this.parent.tab();
+};
+
 Value.prototype.delete = function _delete() {
-    this.type.value = 'null';
     return this.parent.delete();
 };
+
+// TODO list
+// TODO tuple
+// TODO object
+// TODO dict
+// TODO map
+// TODO struct
+// TODO union
+// TODO enum
+// TODO binary data
+// TODO image (dimensions)
+// TODO plane
+// TODO matrix
+// TODO earth lat,lng
+// TODO color
