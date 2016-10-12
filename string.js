@@ -7,19 +7,29 @@ module.exports = StringView;
 
 function StringView() {
     this.parent = null;
-    this.value = new model.Model(null, new model.String());
+    this._value = new model.Model(null, new model.String());
     this.readline = null;
 }
 
 StringView.prototype = Object.create(Child.prototype);
 StringView.prototype.constructor = StringView;
 
+Object.defineProperty(StringView.prototype, 'value', {
+    get: function getValue() {
+        return this._value;
+    },
+    set: function setValue(value) {
+        this._value = value;
+        this.draw();
+    }
+});
+
 StringView.prototype.hookup = function hookup(id, component, scope) {
     if (id === 'this') {
         this.choose = scope.components.choose;
         this.mode = scope.components.mode;
         this.modeLine = scope.modeLine;
-        this.choose.value = 'dynamic';
+        this.choose.value = 'static';
     } else if (id === 'readline') {
         this.readline = component;
         this.readline.parent = this;
@@ -42,10 +52,13 @@ StringView.prototype.blur = function blur() {
 };
 
 StringView.prototype.draw = function draw() {
-    this.static.value = this.value.value;
+    if (this.static) {
+        this.static.value = this.value.value;
+    }
 };
 
 StringView.prototype.enter = function enter() {
+    this.choose.value = 'dynamic'
     if (this.value.value !== null) {
         return this.reenter();
     } else {

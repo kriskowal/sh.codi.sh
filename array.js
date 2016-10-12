@@ -20,6 +20,7 @@ ArrayView.prototype.hookup = function hookup(id, component, scope) {
     if (id === 'this') {
         this.elements = scope.components.elements;
         this.ifEmpty = scope.components.ifEmpty;
+        this.mode = scope.components.mode;
         this.emptyMode = scope.components.emptyMode;
         this.modeLine = scope.modeLine;
         this.resize();
@@ -50,10 +51,6 @@ Object.defineProperty(ArrayView.prototype, 'value', {
     }
 });
 
-ArrayView.prototype.get = function get(index) {
-    return this.elements.iterations[index].scope.components.element.value;
-};
-
 ArrayView.prototype.swap = function swap(index, minus, plus) {
     var array = [];
     for (var i = 0; i < plus; i++) {
@@ -61,6 +58,10 @@ ArrayView.prototype.swap = function swap(index, minus, plus) {
     }
     this.elements.value.swap(this.cursor, minus, array);
     this.resize();
+};
+
+ArrayView.prototype.get = function get(index) {
+    return this.elements.iterations[index].scope.components.element.value;
 };
 
 ArrayView.prototype.enterChild = function enterChild() {
@@ -96,12 +97,12 @@ ArrayView.prototype.resize = function resize() {
 };
 
 ArrayView.prototype.focus = function focus() {
-    this.modeLine.show(this.emptyMode);
+    this.modeLine.show(this.mode);
     this.parent.focusChild();
 };
 
 ArrayView.prototype.blur = function hide() {
-    this.modeLine.hide(this.emptyMode);
+    this.modeLine.hide(this.mode);
     this.parent.blurChild();
 };
 

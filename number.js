@@ -7,12 +7,22 @@ module.exports = NumberView;
 
 function NumberView() {
     this.parent = null;
-    this.value = new model.Model(null, new model.Number());
+    this._value = new model.Model(null, new model.Number());
     this.readline = null;
 }
 
 NumberView.prototype = Object.create(Child.prototype);
 NumberView.prototype.constructor = NumberView;
+
+Object.defineProperty(NumberView.prototype, 'value', {
+    get: function getValue() {
+        return this._value;
+    },
+    set: function setValue(value) {
+        this._value = value;
+        this.draw();
+    }
+});
 
 NumberView.prototype.hookup = function hookup(id, component, scope) {
     if (id === 'this') {
@@ -20,7 +30,7 @@ NumberView.prototype.hookup = function hookup(id, component, scope) {
         this.mode = scope.components.mode;
         this.modeLine = scope.modeLine;
         this.element = scope.components.element;
-        this.choose.value = 'dynamic';
+        this.choose.value = 'static';
     } else if (id === 'readline') {
         this.readline = component;
         this.readline.parent = this;
@@ -52,6 +62,7 @@ NumberView.prototype.draw = function draw() {
 };
 
 NumberView.prototype.enter = function enter() {
+    this.choose.value = 'dynamic';
     if (this.value.value !== null) {
         return this.reenter();
     } else {

@@ -19,6 +19,7 @@
             <repeat id="elements">
                 <tr><td><value id="element">
                     <sp><strong>array:</strong> </sp>
+                    <sp><span class="button"><u>⎋</u></span> </sp>
                     <sp><span class="button"><u>k</u> prev</span> </sp>
                     <sp><span class="button"><u>j</u> next</span> </sp>
                     <sp><span class="button"><u>a</u>dd</span> </sp>
@@ -32,8 +33,14 @@
                 </value></td></tr>
             </repeat>
         </table>
+        <mode id="mode">
+            <sp><strong>array:</strong> </sp>
+            <sp><span class="button"><u>⏎</u></span> </sp>
+            <argument></argument>
+        </mode>
         <mode id="emptyMode">
             <sp><strong>array:</strong> </sp>
+            <sp><span class="button"><u>⏎</u></span> </sp>
             <sp><span class="button"><u>a</u> append</span> </sp>
             <sp><span class="button"><u>i</u> prepend</span> </sp>
             <argument></argument>

@@ -40,6 +40,11 @@ BooleanView.prototype.enter = function enter() {
     return this;
 };
 
+BooleanView.prototype.reenter = function reenter() {
+    this.focus();
+    return this;
+};
+
 BooleanView.prototype.focus = function focus() {
     this.modeLine.show(this.mode);
     this.parent.focusChild();

@@ -5,10 +5,12 @@
         <link rel="tag" href="./slot.html">
     </head>
     <body>
-        <repeat id="modes">
-            <div id="mode" class="mode">
-                <slot id="slot"></slot>
-            </div>
-        </repeat>
+        <div class="modeLine" id="modeLine">
+            <repeat id="modes">
+                <div id="mode" class="mode">
+                    <slot id="slot"></slot>
+                </div>
+            </repeat>
+        </div>
     </body>
 </html>

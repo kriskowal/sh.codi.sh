@@ -4,6 +4,7 @@ module.exports = ModeLine;
 
 function ModeLine(body, scope) {
     this.body = body;
+    this.mode = null;
 }
 
 ModeLine.prototype.hookup = function hookup(id, component, scope) {
@@ -16,6 +17,7 @@ ModeLine.prototype.hookup = function hookup(id, component, scope) {
 
 ModeLine.prototype.hookupThis = function hookupThis(component, scope) {
     this.modes = scope.components.modes;
+    this.modeLine = scope.components.modeLine;
 };
 
 ModeLine.prototype.hookupMode = function (iteration, scope) {
@@ -27,6 +29,7 @@ ModeLine.prototype.hookupMode = function (iteration, scope) {
 ModeLine.prototype.show = function show(mode) {
     if (!mode.element) {
         this.modes.value.push(mode);
+        this.mode = mode;
     }
     mode.show();
 };

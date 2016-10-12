@@ -14,6 +14,9 @@ function Mode(body, scope) {
 }
 
 Mode.prototype.transition = function transition() {
+    if (!this.element) {
+        return;
+    }
     if (this.isVisible) {
         this.element.classList.add('shown');
     } else {
