@@ -57,12 +57,14 @@ BooleanView.prototype.blur = function blur() {
 
 BooleanView.prototype.KeyT = function _true() {
     this.value.value = true;
+    this.parent.update(this.value);
     this.draw();
     return this;
 };
 
 BooleanView.prototype.KeyF = function _false() {
     this.value.value = false;
+    this.parent.update(this.value);
     this.draw();
     return this;
 };
@@ -71,6 +73,7 @@ BooleanView.prototype.Shift_Digit1 =
 BooleanView.prototype.Space =
 BooleanView.prototype.KeyN = function negate() {
     this.value.value = !this.value.value;
+    this.parent.update(this.value);
     this.draw();
     return this;
 };

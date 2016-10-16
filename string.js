@@ -73,6 +73,7 @@ StringView.prototype.reenter = function reenter() {
 
 StringView.prototype.returnFromReadline = function returnFromReadline(text, cursor) {
     this.value.value = text;
+    this.parent.update(this.value);
     if (this.parent.canProceed()) {
         this.blur();
         return this.parent.proceed();

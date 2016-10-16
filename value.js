@@ -16,6 +16,9 @@ Value.prototype.constructor = Value;
 
 Object.defineProperty(Value.prototype, 'value', {
     get: function getValue() {
+        if (this.component) {
+            return this.component.value;
+        }
         return this._value;
     },
     set: function setValue(value) {
@@ -26,6 +29,10 @@ Object.defineProperty(Value.prototype, 'value', {
         }
     }
 });
+
+Value.prototype.update = function update(cell) {
+    this.parent.update(cell);
+};
 
 Value.prototype.hookup = function hookup(id, component, scope) {
     if (id === 'this') {
@@ -140,7 +147,7 @@ Value.prototype.Escape = function () {
 Value.prototype.KeyP = function () {
     this.value = this.scope.clip.get();
     this.blur();
-    return this.bounce();
+    return this.reenter();
 };
 
 Value.prototype.blurChild = function () {

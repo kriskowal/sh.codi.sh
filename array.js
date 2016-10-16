@@ -69,6 +69,11 @@ ArrayView.prototype.get = function get(index) {
     return this.elements.iterations[index].scope.components.element.value;
 };
 
+ArrayView.prototype.update = function update(value) {
+    this._value.value[this.cursor] = value;
+    this.parent.update();
+};
+
 ArrayView.prototype.enter = function enter() {
     if (this.cursor < this.elements.value.length) {
         return this.reenterChildAt(this.cursor);

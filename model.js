@@ -6,17 +6,21 @@ function Cell(value, model) {
     this.model = model;
 }
 
+Cell.prototype.toJSON = function toJSON() {
+    return this.model.toJSON(this.value);
+};
+
 function AnyModel() {
     this.type = 'any';
     this.view = 'any';
 }
 exports.any = new AnyModel();
-
-function NullModel() {
-    this.type = 'null';
-    this.view = 'null';
-}
-exports.null = new NullModel();
+AnyModel.prototype.toJSON = function toJSON(cell) {
+    if (cell != null) {
+        return cell.toJSON();
+    }
+    return null;
+};
 
 exports.String = StringModel;
 function StringModel() {
@@ -25,6 +29,9 @@ function StringModel() {
     this.range = [];
 }
 exports.string = new StringModel();
+StringModel.prototype.toJSON = function toJSON(value) {
+    return value;
+};
 
 exports.Number = NumberModel;
 function NumberModel() {
@@ -33,28 +40,41 @@ function NumberModel() {
     this.min = -Infinity;
     this.max = +Infinity;
 }
+NumberModel.prototype.toJSON = function toJSON(value) {
+    return value;
+};
 exports.number = new NumberModel();
 
 function BooleanModel() {
     this.type = 'boolean';
     this.view = 'boolean';
 }
+BooleanModel.prototype.toJSON = function toJSON(value) {
+    return value;
+};
 exports.boolean = new BooleanModel();
 
 exports.Array = ArrayModel;
-function ArrayModel(valueModel) {
+function ArrayModel(value) {
     this.type = 'array';
     this.view = 'array';
-    this.valueModel = valueModel || exports.any;
+    this.value = value || exports.any;
     this.minLength = 0;
     this.maxLength = Infinity;
 }
+ArrayModel.prototype.toJSON = function toJSON(value) {
+    var json = [];
+    for (var i = 0; i < value.length; i++) {
+        var cell = value[i];
+        json.push(cell.toJSON());
+    }
+    return json;
+};
+exports.array = new ArrayModel();
 
 ArrayModel.prototype.get = function get(array, index) {
-    return this.valueModel;
+    return this.value;
 };
-
-exports.array = new ArrayModel();
 
 exports.Object = ObjectModel;
 function ObjectModel() {
@@ -63,9 +83,18 @@ function ObjectModel() {
     this.key = exports.string;
     this.value = exports.any;
 }
-
+ObjectModel.prototype.toJSON = function toJSON(entries) {
+    var json = {};
+    for (var i = 0; i < entries.length; i++) {
+        var entry = entries[i];
+        var key = entry.key.toJSON();
+        var value = entry.value.toJSON();
+        json[key] = value;
+    }
+    return json;
+};
 ObjectModel.prototype.get = function get(index) {
-    return this.entry;
+    return this;
 };
 
 // TODO Map

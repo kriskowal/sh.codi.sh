@@ -28,6 +28,9 @@ Object.defineProperty(Root.prototype, 'value', {
     }
 });
 
+Root.prototype.update = function udpate(value) {
+};
+
 Root.prototype.enter = function enter() {
     return this.component.enter();
 };
