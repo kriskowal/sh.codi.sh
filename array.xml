@@ -8,30 +8,32 @@
         <meta accepts="[body]" as="argument"/>
     </head>
     <body>
-        <table id="elementsBox" class="arrayBox">
-            <reveal id="ifEmpty">
-                <tr>
-                    <td id="emptyElement" class="element">
-                        <em>empty array</em>
-                    </td>
-                </tr>
-            </reveal>
-            <repeat id="elements">
-                <tr><td><value id="element">
-                    <sp><strong>array:</strong> </sp>
-                    <sp><span class="button"><u>⎋</u></span> </sp>
-                    <sp><span class="button"><u>hjkl</u> move</span> </sp>
-                    <sp><span class="button"><u>a</u>dd</span> </sp>
-                    <sp><span class="button"><u>i</u>nsert</span> </sp>
-                    <sp><span class="button">⇧<u>a</u>ppend</span> </sp>
-                    <sp><span class="button">pre-⇧<u>i</u>nsert</span> </sp>
-                    <sp><span class="button"><u>d</u>elete</span> </sp>
-                    <sp><span class="button"><u>g</u>o to first</span> </sp>
-                    <sp><span class="button">⇧<u>g</u>o to last</span> </sp>
-                    <sp><span class="button"><u>y</u>ank</span> </sp>
-                </value></td></tr>
-            </repeat>
-        </table>
+        <div class="arrayBox">
+            <table id="elementsBox">
+                <reveal id="ifEmpty">
+                    <tr>
+                        <td>
+                            <div id="emptyElement" class="element"><em>empty array</em></div>
+                        </td>
+                    </tr>
+                </reveal>
+                <repeat id="elements">
+                    <tr><td><value id="element">
+                        <sp><strong>array:</strong> </sp>
+                        <sp><span class="button"><u>⎋</u></span> </sp>
+                        <sp><span class="button"><u>hjkl</u> move</span> </sp>
+                        <sp><span class="button"><u>a</u>dd</span> </sp>
+                        <sp><span class="button"><u>i</u>nsert</span> </sp>
+                        <sp><span class="button">⇧<u>a</u>ppend</span> </sp>
+                        <sp><span class="button">pre-⇧<u>i</u>nsert</span> </sp>
+                        <sp><span class="button"><u>d</u>elete</span> </sp>
+                        <sp><span class="button"><u>g</u>o to first</span> </sp>
+                        <sp><span class="button">⇧<u>g</u>o to last</span> </sp>
+                        <sp><span class="button"><u>y</u>ank</span> </sp>
+                    </value></td></tr>
+                </repeat>
+            </table>
+        </div>
         <mode id="mode">
             <sp><strong>array:</strong> </sp>
             <sp><span class="button"><u>⏎</u></span> </sp>

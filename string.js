@@ -53,6 +53,7 @@ StringView.prototype.blur = function blur() {
 
 StringView.prototype.draw = function draw() {
     if (this.static) {
+        this.choose.value = this.value.value ? 'static' : 'null';
         this.static.value = this.value.value;
     }
 };
@@ -136,4 +137,3 @@ StringView.prototype.tabBack = function tabBack() {
     this.blur();
     return this.parent.tabBack();
 };
-

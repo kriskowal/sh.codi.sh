@@ -10,52 +10,54 @@
         <meta accepts="[body]" as="argument"/>
     </head>
     <body>
-        <table id="objectBox" class="objectBox">
-            <tr>
-                <th class="keyHeader element"><em>key</em></th>
-                <th class="valueHeader element"><em>value</em></th>
-            </tr>
-            <reveal id="ifEmpty">
+        <div class="mapBox">
+            <table>
                 <tr>
-                    <td colspan="2" id="emptyElement" class="element">
-                        <em>no entries</em>
-                    </td>
+                    <th class="keyHeader"><span class="element"><em>key</em></span></th>
+                    <th class="valueHeader"><span class="element"><em>value</em></span></th>
                 </tr>
-            </reveal>
-            <repeat id="elements">
-                <tr>
-                    <th id="keyBox">
-                        <value id="key">
-                            <sp><strong>object:</strong> </sp>
-                            <sp><span class="button"><u>hjkl</u> move</span> </sp>
-                            <sp><span class="button"><u>a</u>dd</span> </sp>
-                            <sp><span class="button"><u>d</u>elete</span> </sp>
-                            <sp><span class="button"><u>g</u>o to first</span> </sp>
-                            <sp><span class="button">⇧<u>g</u>o to last</span> </sp>
-                            <sp><span class="button"><u>y</u>ank</span> </sp>
-                        </value>
-                    </th>
-                    <td id="valueBox" class="valueBox">
-                        <value id="value">
-                            <sp><strong>object:</strong> </sp>
-                            <sp><span class="button"><u>hjkl</u> move</span> </sp>
-                            <sp><span class="button"><u>a</u>dd</span> </sp>
-                            <sp><span class="button"><u>d</u>elete</span> </sp>
-                            <sp><span class="button"><u>g</u>o to first</span> </sp>
-                            <sp><span class="button">⇧<u>g</u>o to last</span> </sp>
-                            <sp><span class="button"><u>y</u>ank</span> </sp>
-                        </value>
-                    </td>
-                </tr>
-            </repeat>
-        </table>
+                <reveal id="ifEmpty">
+                    <tr>
+                        <td colspan="2" class="emptyRow">
+                            <span class="element" id="emptyElement"><em>no entries</em></span>
+                        </td>
+                    </tr>
+                </reveal>
+                <repeat id="elements">
+                    <tr>
+                        <th id="keyBox">
+                            <value id="key">
+                                <sp><strong>map:</strong> </sp>
+                                <sp><span class="button"><u>hjkl</u> move</span> </sp>
+                                <sp><span class="button"><u>a</u>dd</span> </sp>
+                                <sp><span class="button"><u>d</u>elete</span> </sp>
+                                <sp><span class="button"><u>g</u>o to first</span> </sp>
+                                <sp><span class="button">⇧<u>g</u>o to last</span> </sp>
+                                <sp><span class="button"><u>y</u>ank</span> </sp>
+                            </value>
+                        </th>
+                        <td id="valueBox" class="valueBox">
+                            <value id="value">
+                                <sp><strong>map:</strong> </sp>
+                                <sp><span class="button"><u>hjkl</u> move</span> </sp>
+                                <sp><span class="button"><u>a</u>dd</span> </sp>
+                                <sp><span class="button"><u>d</u>elete</span> </sp>
+                                <sp><span class="button"><u>g</u>o to first</span> </sp>
+                                <sp><span class="button">⇧<u>g</u>o to last</span> </sp>
+                                <sp><span class="button"><u>y</u>ank</span> </sp>
+                            </value>
+                        </td>
+                    </tr>
+                </repeat>
+            </table>
+        </div>
         <mode id="mode">
-            <sp><strong>object:</strong> </sp>
+            <sp><strong>map:</strong> </sp>
             <sp><span class="button"><u>⏎</u></span> </sp>
             <argument></argument>
         </mode>
         <mode id="emptyMode">
-            <sp><strong>object:</strong> </sp>
+            <sp><strong>map:</strong> </sp>
             <sp><span class="button"><u>⏎</u></span> </sp>
             <sp><span class="button"><u>a</u> append</span> </sp>
             <sp><span class="button"><u>i</u> prepend</span> </sp>

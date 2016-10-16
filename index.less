@@ -2,7 +2,8 @@
 @foreground: hsl(192, 25%, 75%);
 @active: hsl(192, 25%, 100%);
 @selected: hsl(132, 25%, 75%);
-@numbercolor: hsl(0, 75%, 63%);
+@numbercolor: hsl(240, 75%, 75%);
+@errorcolor: hsl(0, 75%, 63%);
 @keycolor: hsl(42, 61%, 50%);
 @stringcolor: @keycolor;
 @monospace: Input, Monaco, monospace;
@@ -59,6 +60,13 @@ body {
     padding: 10px;
     bottom: 40px;
     z-index: 0;
+
+	display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 
 .modeLine {
@@ -125,21 +133,25 @@ body {
     background-color: @foreground;
 }
 
+.mapBox {
+    border: solid @foreground 3px;
+    border-radius: 1ex;
+}
+
 .arrayBox {
     border: solid @foreground 3px;
 }
 
-.objectBox {
-    border: solid @foreground 3px;
-    border-radius: 1ex;
-    padding-left: 2.5px;
-    padding-right: 2.5px;
+.emptyRow {
+    border-top: solid @foreground 2px;
 }
 
 .keyHeader {
 }
 
 .valueHeader {
+    border-left: solid @foreground 2px;
+    padding-left: 2px;
 }
 
 .valueBox {
@@ -147,9 +159,15 @@ body {
     padding-left: 2px;
 }
 
+table {
+    border-collapse: collapse;
+}
+
 td, th {
     text-align: left;
     vertical-align: top;
+    margin: 2px;
+    padding: 2px;
 }
 
 u {
@@ -162,7 +180,6 @@ u {
 }
 
 .number {
-    font-family: @monospace;
     color: @numbercolor;
 }
 
