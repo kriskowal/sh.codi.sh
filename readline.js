@@ -153,8 +153,16 @@ Readline.prototype.Alt_KeyF = function gotoNextWord() {
 };
 
 Readline.prototype.Ctrl_KeyV = function verbatim() {
-    this.modeLine.show(this.verbatim);
+    this.focusVerbatim();
     return new Verbatim(this);
+};
+
+Readline.prototype.focusVerbatim = function focusVerbatim() {
+    this.modeLine.show(this.verbatim);
+};
+
+Readline.prototype.blurVerbatim = function blurVerbatim() {
+    this.modeLine.hide(this.verbatim);
 };
 
 Readline.prototype.Enter = function enter(label) {
@@ -193,6 +201,10 @@ function Verbatim(parent) {
     this.parent = parent;
 }
 
+Verbatim.prototype.blur = function blur() {
+    return this.parent.blurVerbatim();
+};
+
 Verbatim.prototype.Tab = function handleTab() {
     this.parent.write('\t');
     return this.exit();
@@ -215,7 +227,6 @@ Verbatim.prototype.handleEvent = function handleEvent(event, key, keyCode) {
         return this.exit();
     }
 };
-
 
 Verbatim.prototype.exit = function exit() {
     this.blur();
