@@ -6,7 +6,7 @@ var Child = require('./child');
 module.exports = BooleanView;
 
 function BooleanView() {
-    this._value = new model.Model(false, model.boolean);
+    this._value = new model.Cell(false, model.boolean);
     this.parent = null;
 }
 

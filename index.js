@@ -9,5 +9,5 @@ var document = new Document(window.document.body);
 var scope = new Scope();
 scope.animator = new Animator();
 scope.main = new Root(document.documentElement, scope);
-scope.main.value = new model.Model(null, model.any);
+scope.main.value = new model.Cell(null, model.any);
 scope.keyboard = new Keyboard(window, scope.main.enter());

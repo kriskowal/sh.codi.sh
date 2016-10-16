@@ -9,7 +9,7 @@ module.exports = ArrayView;
 
 function ArrayView() {
     this.cursor = 0;
-    this._value = new model.Model([], model.array);
+    this._value = new model.Cell([], model.array);
     this.parent = null;
 }
 
@@ -38,7 +38,7 @@ Object.defineProperty(ArrayView.prototype, 'value', {
         for (var i = 0; i < this.elements.value.length; i++) {
             value.push(this.get(i));
         }
-        return new model.Model(value, this._value.model);
+        return new model.Cell(value, this._value.model);
     },
     set: function setValue(cell) {
         var value = cell.value;
@@ -47,14 +47,19 @@ Object.defineProperty(ArrayView.prototype, 'value', {
             return;
         }
         this.elements.value = cell.value.slice();
+        this._value.model = cell.model;
         this.resize();
     }
 });
 
+ArrayView.prototype.createChild = function createChild(index) {
+    return new model.Cell(null, this.value.model.get(index));
+};
+
 ArrayView.prototype.swap = function swap(index, minus, plus) {
     var array = [];
     for (var i = 0; i < plus; i++) {
-        array.push(new model.Model(null, this.value.model.get(index + i)));
+        array.push(this.createChild(index + i));
     }
     this.elements.value.swap(this.cursor, minus, array);
     this.resize();
@@ -64,15 +69,31 @@ ArrayView.prototype.get = function get(index) {
     return this.elements.iterations[index].scope.components.element.value;
 };
 
-ArrayView.prototype.enterChild = function enterChild() {
+ArrayView.prototype.enter = function enter() {
     if (this.cursor < this.elements.value.length) {
-        return this.elements.iterations[this.cursor].scope.components.element.enter();
+        return this.reenterChildAt(this.cursor);
     } else {
-        return this.empty();
+        return this.enterEmptyMode();
     }
 };
 
-ArrayView.prototype.empty = function empty() {
+ArrayView.prototype.enterChild = function enterChild() {
+    if (this.cursor < this.elements.value.length) {
+        return this.enterChildAt(this.cursor);
+    } else {
+        return this.enterEmptyMode();
+    }
+};
+
+ArrayView.prototype.reenterChildAt = function reenterChildAt(index) {
+    return this.elements.iterations[index].scope.components.element.reenter();
+};
+
+ArrayView.prototype.enterChildAt = function enterChildAt(index) {
+    return this.elements.iterations[index].scope.components.element.enter();
+};
+
+ArrayView.prototype.enterEmptyMode = function enterEmptyMode() {
     this.focusEmpty();
     return new Empty(this);
 };
@@ -106,13 +127,8 @@ ArrayView.prototype.blur = function hide() {
     this.parent.blurChild();
 };
 
-ArrayView.prototype.returnFromValue = function () {
-    this.focus();
-    return this;
-};
-
 ArrayView.prototype.canPush = function canPush() {
-    return this;
+    return true;
 };
 
 ArrayView.prototype.push = function push() {
@@ -123,7 +139,7 @@ ArrayView.prototype.push = function push() {
 };
 
 ArrayView.prototype.canUnshift = function canUnshift() {
-    return this;
+    return true;
 };
 
 ArrayView.prototype.unshift = function unshift() {
@@ -153,14 +169,6 @@ ArrayView.prototype.canInsert = function canInsert() {
 ArrayView.prototype.insert = function insert() {
     this.swap(this.cursor, 0, 1);
     return this.enterChild();
-};
-
-ArrayView.prototype.enter = function enter() {
-    if (this.cursor < this.elements.value.length) {
-        return this.elements.iterations[this.cursor].scope.components.element.reenter();
-    } else {
-        return this.empty();
-    }
 };
 
 ArrayView.prototype.canReenter = function canReenter() {
@@ -249,6 +257,10 @@ ArrayView.prototype.tab = function tab() {
 
 ArrayView.prototype.canTabBack = function canTabBack() {
     return false; // TODO
+};
+
+ArrayView.prototype.canProceed = function canProceed() {
+    return false;
 };
 
 function Empty(parent) {

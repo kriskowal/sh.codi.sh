@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link rel="extends" href="./object"/>
+        <link rel="extends" href="./map"/>
         <link rel="tag" href="gutentag/repeat.html"/>
         <link rel="tag" href="gutentag/reveal.html"/>
         <link rel="tag" href="gutentag/text.html"/>
@@ -12,30 +12,33 @@
     <body>
         <table id="objectBox" class="objectBox">
             <tr>
-                <th class="keyHeader"><em>key</em></th>
+                <th class="keyHeader element"><em>key</em></th>
                 <th class="valueHeader element"><em>value</em></th>
             </tr>
             <reveal id="ifEmpty">
                 <tr>
-                    <th id="emptyElement" class="element">
-                    </th>
-                    <td class="valueBox element">
+                    <td colspan="2" id="emptyElement" class="element">
                         <em>no entries</em>
                     </td>
                 </tr>
             </reveal>
-            <repeat id="entries">
-                <tr id="entryBox">
+            <repeat id="elements">
+                <tr>
                     <th id="keyBox">
-                        <div class="display key">
-                            <text id="key"></text>
-                        </div>
+                        <value id="key">
+                            <sp><strong>object:</strong> </sp>
+                            <sp><span class="button"><u>hjkl</u> move</span> </sp>
+                            <sp><span class="button"><u>a</u>dd</span> </sp>
+                            <sp><span class="button"><u>d</u>elete</span> </sp>
+                            <sp><span class="button"><u>g</u>o to first</span> </sp>
+                            <sp><span class="button">⇧<u>g</u>o to last</span> </sp>
+                            <sp><span class="button"><u>y</u>ank</span> </sp>
+                        </value>
                     </th>
                     <td id="valueBox" class="valueBox">
                         <value id="value">
                             <sp><strong>object:</strong> </sp>
-                            <sp><span class="button"><u>k</u> prev</span> </sp>
-                            <sp><span class="button"><u>j</u> next</span> </sp>
+                            <sp><span class="button"><u>hjkl</u> move</span> </sp>
                             <sp><span class="button"><u>a</u>dd</span> </sp>
                             <sp><span class="button"><u>d</u>elete</span> </sp>
                             <sp><span class="button"><u>g</u>o to first</span> </sp>
@@ -45,19 +48,17 @@
                     </td>
                 </tr>
             </repeat>
-            <reveal id="ifNewEntry">
-                <tr id="entryBox">
-                    <th class="key display keyBox">
-                        <readline id="newKey"></readline>
-                    </th>
-                    <td class="valueBox"></td>
-                </tr>
-            </reveal>
         </table>
         <mode id="mode">
             <sp><strong>object:</strong> </sp>
             <sp><span class="button"><u>⏎</u></span> </sp>
-            <sp><span class="button"><u>⎋</u></span> </sp>
+            <argument></argument>
+        </mode>
+        <mode id="emptyMode">
+            <sp><strong>object:</strong> </sp>
+            <sp><span class="button"><u>⏎</u></span> </sp>
+            <sp><span class="button"><u>a</u> append</span> </sp>
+            <sp><span class="button"><u>i</u> prepend</span> </sp>
             <argument></argument>
         </mode>
     </body>

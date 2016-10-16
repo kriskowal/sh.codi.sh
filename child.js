@@ -101,6 +101,100 @@ Child.prototype.KeyY = function yank() {
     return this;
 };
 
+// Delegate to parent
+
+Child.prototype.canReturn = function canReturn() {
+    return this.parent.canReturn();
+};
+
+Child.prototype.return = function _return() {
+    return this.parent.return();
+};
+
+Child.prototype.canDown = function canDown() {
+    return this.parent.canDown();
+};
+
+Child.prototype.down = function down() {
+    return this.parent.down();
+};
+
+Child.prototype.canUp = function canUp() {
+    return this.parent.canUp();
+};
+
+Child.prototype.up = function up() {
+    return this.parent.up();
+};
+
+Child.prototype.canAppend = function canAppend() {
+    return this.parent.canAppend();
+};
+
+Child.prototype.append = function append() {
+    return this.parent.append();
+};
+
+Child.prototype.canInsert = function canInsert() {
+    return this.parent.canInsert();
+};
+
+Child.prototype.insert = function insert() {
+    return this.parent.insert();
+};
+
+Child.prototype.canUnshift = function canUnshift() {
+    return this.parent.canUnshift();
+};
+
+Child.prototype.unshift = function unshift() {
+    return this.parent.unshift();
+};
+
+Child.prototype.canPush = function canPush() {
+    return this.parent.canPush();
+};
+
+Child.prototype.push = function push() {
+    return this.parent.push();
+};
+
+Child.prototype.canToTop = function canToTop() {
+    return this.parent.canToTop();
+};
+
+Child.prototype.toTop = function toTop() {
+    return this.parent.toTop();
+};
+
+Child.prototype.canToBottom = function canToBottom() {
+    return this.parent.canToBottom();
+};
+
+Child.prototype.toBottom = function toBottom() {
+    return this.parent.toBottom();
+};
+
+Child.prototype.canTab = function canTab() {
+    return this.parent.canTab();
+};
+
+Child.prototype.tab = function tab(value) {
+    return this.parent.tab(value);
+};
+
+Child.prototype.delete = function _delete() {
+    return this.parent.delete();
+};
+
+Child.prototype.canProceed = function canProceed() {
+    return this.parent.canProceed();
+};
+
+Child.prototype.proceed = function proceed() {
+    return this.parent.proceed();
+};
+
 // Escape
 // Enter
 // KeyL

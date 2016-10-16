@@ -6,7 +6,7 @@ var Child = require('./child');
 module.exports = Value;
 
 function Value(body, scope) {
-    this._value = new model.Model(null, model.any);
+    this._value = new model.Cell(null, model.any);
     this.parent = null;
     this.component = null;
 }
@@ -53,8 +53,8 @@ Value.prototype.hookup = function hookup(id, component, scope) {
         this.component = scope.components.array;
         this.component.parent = this;
         this.component.value = this.value;
-    } else if (id === 'view:object') {
-        this.component = scope.components.object;
+    } else if (id === 'view:map') {
+        this.component = scope.components.map;
         this.component.parent = this;
         this.component.value = this.value;
     }
@@ -87,44 +87,43 @@ Value.prototype.bounce = function bounce() {
 };
 
 Value.prototype.KeyS = function () {
-    this.value = new model.Model(null, model.string);
+    this.value = new model.Cell(null, model.string);
     this.blur();
     return this.component.enter();
 };
 
 Value.prototype.KeyN = function () {
-    this.value = new model.Model(null, model.number);
+    this.value = new model.Cell(null, model.number);
     this.blur();
     return this.component.enter();
 };
 
 Value.prototype.KeyT = function () {
-    this.value = new model.Model(true, model.boolean);
+    this.value = new model.Cell(true, model.boolean);
     this.blur();
     return this.component.enter();
 };
 
 Value.prototype.KeyF = function () {
-    this.value = new model.Model(false, model.boolean);
+    this.value = new model.Cell(false, model.boolean);
     this.blur();
     return this.component.enter();
 };
 
 Value.prototype.KeyA = function () {
-    this.value = new model.Model([], model.array);
+    this.value = new model.Cell([], model.array);
     this.blur();
     return this.component.enter();
 };
 
-// TODO parameterize array and object/map types
 Value.prototype.Shift_KeyA = function () {
-    this.value = new model.Model([], new model.Array(model.string));
+    this.value = new model.Cell([], new model.Array(model.string));
     this.blur();
     return this.component.enter();
 };
 
 Value.prototype.KeyO = function () {
-    this.view.value = 'object';
+    this.value = new model.Cell([], new model.Object());
     this.blur();
     return this.component.enter();
 };
@@ -162,95 +161,8 @@ Value.prototype.focus = function () {
     this.element.classList.add('active');
 };
 
-// Delegate to parent
-
-Value.prototype.canReturn = function canReturn() {
-    return this.parent.canReturn();
-};
-
-Value.prototype.return = function _return() {
-    return this.parent.return();
-};
-
-Value.prototype.canDown = function canDown() {
-    return this.parent.canDown();
-};
-
-Value.prototype.down = function down() {
-    return this.parent.down();
-};
-
-Value.prototype.canUp = function canUp() {
-    return this.parent.canUp();
-};
-
-Value.prototype.up = function up() {
-    return this.parent.up();
-};
-
-Value.prototype.canAppend = function canAppend() {
-    return this.parent.canAppend();
-};
-
-Value.prototype.append = function append() {
-    return this.parent.append();
-};
-
-Value.prototype.canInsert = function canInsert() {
-    return this.parent.canInsert();
-};
-
-Value.prototype.insert = function insert() {
-    return this.parent.insert();
-};
-
-Value.prototype.canUnshift = function canUnshift() {
-    return this.parent.canUnshift();
-};
-
-Value.prototype.unshift = function unshift() {
-    return this.parent.unshift();
-};
-
-Value.prototype.canPush = function canPush() {
-    return this.parent.canPush();
-};
-
-Value.prototype.push = function push() {
-    return this.parent.push();
-};
-
-Value.prototype.canToTop = function canToTop() {
-    return this.parent.canToTop();
-};
-
-Value.prototype.toTop = function toTop() {
-    return this.parent.toTop();
-};
-
-Value.prototype.canToBottom = function canToBottom() {
-    return this.parent.canToBottom();
-};
-
-Value.prototype.toBottom = function toBottom() {
-    return this.parent.toBottom();
-};
-
-Value.prototype.canTab = function canTab() {
-    return this.parent.canTab();
-};
-
-Value.prototype.tab = function tab() {
-    return this.parent.tab();
-};
-
-Value.prototype.delete = function _delete() {
-    return this.parent.delete();
-};
-
 // TODO list
 // TODO tuple
-// TODO object
 // TODO dict
 // TODO map
 // TODO struct

@@ -20,8 +20,7 @@
                 <tr><td><value id="element">
                     <sp><strong>array:</strong> </sp>
                     <sp><span class="button"><u>⎋</u></span> </sp>
-                    <sp><span class="button"><u>k</u> prev</span> </sp>
-                    <sp><span class="button"><u>j</u> next</span> </sp>
+                    <sp><span class="button"><u>hjkl</u> move</span> </sp>
                     <sp><span class="button"><u>a</u>dd</span> </sp>
                     <sp><span class="button"><u>i</u>nsert</span> </sp>
                     <sp><span class="button">⇧<u>a</u>ppend</span> </sp>

@@ -7,7 +7,7 @@ module.exports = NumberView;
 
 function NumberView() {
     this.parent = null;
-    this._value = new model.Model(null, new model.Number());
+    this._value = new model.Cell(null, new model.Number());
     this.readline = null;
 }
 
@@ -117,7 +117,9 @@ NumberView.prototype.canTab = function canTab() {
     return this.parent.canTab();
 };
 
-NumberView.prototype.tab = function tab() {
+NumberView.prototype.tab = function tab(number) {
+    this.value.value = +number;
+    this.draw();
     this.blur();
     return this.parent.tab();
 };

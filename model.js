@@ -1,7 +1,7 @@
 'use strict';
 
-exports.Model = Model;
-function Model(value, model) {
+exports.Cell = Cell;
+function Cell(value, model) {
     this.value = value;
     this.model = model;
 }
@@ -41,13 +41,6 @@ function BooleanModel() {
 }
 exports.boolean = new BooleanModel();
 
-exports.Enum = EnumModel;
-function EnumModel(values) {
-    this.view = 'enum';
-    this.namesToValues = {};
-    this.valuesToNames = {};
-}
-
 exports.Array = ArrayModel;
 function ArrayModel(valueModel) {
     this.type = 'array';
@@ -63,64 +56,21 @@ ArrayModel.prototype.get = function get(array, index) {
 
 exports.array = new ArrayModel();
 
-exports.Tuple = TupleModel;
-function TupleModel(fields) {
-    this.type = 'tuple';
-    this.view = 'array';
-    this.minLength = fields.length;
-    this.maxLength = fields.length;
-    this.fields = fields;
-};
-
-TupleModel.prototype.get = function get(index) {
-    return this.fields[index];
-};
-
-exports.Field = Field;
-function Field(key, value) {
-    this.key = null;
-    this.value = value;
-}
-
-exports.objectField = new Field(exports.string, exports.any);
-
 exports.Object = ObjectModel;
 function ObjectModel() {
-    this.entry = exports.entry;
+    this.type = 'object';
+    this.view = 'map';
+    this.key = exports.string;
+    this.value = exports.any;
 }
-
-ObjectModel.prototype.keys = function keys() {
-    return [];
-};
 
 ObjectModel.prototype.get = function get(index) {
     return this.entry;
 };
 
-exports.Map = MapModel;
-function MapModel(entry) {
-    this.type = 'map';
-    this.view = 'object';
-    this.entry = entry;
-}
-
-exports.Struct = StructModel;
-function StructModel() {
-    this.fields = [];
-    this.fieldsByName = {};
-}
-
-StructModel.prototype.keys = function keys() {
-    return this.fields.map(key);
-};
-
-StructModel.prototype.get = function get(index) {
-    return this.fields[index];
-};
-
-function key(field) {
-    return field.key;
-}
-
+// TODO Map
+// TODO Enum
+// TODO Tuple
+// TODO Struct
 // TODO Union
 // TODO Result

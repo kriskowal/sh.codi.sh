@@ -7,7 +7,7 @@ module.exports = StringView;
 
 function StringView() {
     this.parent = null;
-    this._value = new model.Model(null, new model.String());
+    this._value = new model.Cell(null, new model.String());
     this.readline = null;
 }
 
@@ -73,6 +73,10 @@ StringView.prototype.reenter = function reenter() {
 
 StringView.prototype.returnFromReadline = function returnFromReadline(text, cursor) {
     this.value.value = text;
+    if (this.parent.canProceed()) {
+        this.blur();
+        return this.parent.proceed();
+    }
     this.focus();
     this.parent.focusChild();
     return this;
@@ -116,7 +120,9 @@ StringView.prototype.canTab = function canTab() {
     return this.parent.canTab();
 };
 
-StringView.prototype.tab = function tab() {
+StringView.prototype.tab = function tab(text) {
+    this.value.value = text;
+    this.draw();
     this.blur();
     return this.parent.tab();
 };

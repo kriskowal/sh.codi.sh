@@ -53,7 +53,7 @@ Readline.prototype.return = function _return(text, cursor) {
 
 Readline.prototype.Tab = function tab() {
     if (this.parent.canTab()) {
-        return this.return(this.text, this.cursor).tab();
+        return this.parent.tab(this.text, this.cursor);
     }
     return this;
 };

@@ -5,7 +5,7 @@ var model = require('./model');
 module.exports = Clip;
 
 function Clip() {
-    this.value = new model.Model(null, model.any);
+    this.value = new model.Cell(null, model.any);
 }
 
 Clip.prototype.get = function get() {

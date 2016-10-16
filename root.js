@@ -40,7 +40,7 @@ Root.prototype.hookupThis = function hookupThis(scope) {
 };
 
 Root.prototype.delete = function _delete() {
-    this.value = new model.Model(null, model.any);
+    this.value = new model.Cell(null, model.any);
     return this.component.enter();
 };
 
@@ -89,5 +89,9 @@ Root.prototype.canTab = function canTab() {
 };
 
 Root.prototype.canTabBack = function canTabBack() {
+    return false;
+};
+
+Root.prototype.canProceed = function canProceed() {
     return false;
 };
