@@ -39,7 +39,7 @@ MapView.prototype.canProceed = function canProceed() {
 };
 
 MapView.prototype.proceed = function proceed() {
-    return this.enter();
+    return this.elements.iterations[this.cursor].scope.components.value.enter();
 };
 
 MapView.prototype.createChild = function createChild(index) {
