@@ -61,12 +61,6 @@ body {
     bottom: 40px;
     z-index: 0;
 
-	display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: flex-start;
-    flex-wrap: wrap;
-    flex-direction: row;
 }
 
 .modeLine {
@@ -142,6 +136,11 @@ body {
     border: solid @foreground 3px;
 }
 
+.structBox {
+    border: solid @foreground 3px;
+    border-radius: 1ex;
+}
+
 .emptyRow {
     border-top: solid @foreground 2px;
 }
@@ -185,4 +184,29 @@ u {
 
 .key {
     color: @keycolor;
+}
+
+.left {
+    padding: 1ex;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 50%;
+    bottom: 0;
+
+	display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.right {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 0;
+    bottom: 0;
 }

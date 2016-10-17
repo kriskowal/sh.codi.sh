@@ -62,6 +62,7 @@ ArrayView.prototype.swap = function swap(index, minus, plus) {
         array.push(this.createChild(index + i));
     }
     this.elements.value.swap(this.cursor, minus, array);
+    this.parent.update();
     this.resize();
 };
 
@@ -71,7 +72,7 @@ ArrayView.prototype.get = function get(index) {
 
 ArrayView.prototype.update = function update(value) {
     this._value.value[this.cursor] = value;
-    this.parent.update();
+    this.parent.update(this.value);
 };
 
 ArrayView.prototype.enter = function enter() {

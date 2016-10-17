@@ -3,10 +3,8 @@
         <link rel="extends" href="./map"/>
         <link rel="tag" href="gutentag/repeat.html"/>
         <link rel="tag" href="gutentag/reveal.html"/>
-        <link rel="tag" href="gutentag/text.html"/>
         <link rel="tag" href="./value.html"/>
         <link rel="tag" href="./mode.html"/>
-        <link rel="tag" href="./readline.html"/>
         <meta accepts="[body]" as="argument"/>
     </head>
     <body>

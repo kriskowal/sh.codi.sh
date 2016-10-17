@@ -170,6 +170,7 @@ Value.prototype.Escape = function () {
 
 Value.prototype.KeyP = function () {
     this.value = this.scope.clip.get();
+    this.parent.update();
     this.blur();
     return this.reenter();
 };

@@ -2,13 +2,19 @@
 <html>
     <head>
         <link rel="extends" href="./main">
+        <link rel="tag" href="gutentag/text.html">
         <link rel="tag" href="./root.html">
         <link rel="tag" href="./modeline.html">
     </head>
     <body>
         <modeline id="modeLine"></modeline>
         <div class="nonModeLine">
-            <root id="component"></root>
+            <div class="left">
+                <root id="component"></root>
+            </div>
+            <div class="right">
+                <pre><text id="representation"></text></pre>
+            </div>
         </div>
     </body>
 </html>

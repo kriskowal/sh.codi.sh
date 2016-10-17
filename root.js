@@ -29,6 +29,7 @@ Object.defineProperty(Root.prototype, 'value', {
 });
 
 Root.prototype.update = function udpate(value) {
+    this.parent.update(this.value);
 };
 
 Root.prototype.enter = function enter() {
@@ -44,6 +45,7 @@ Root.prototype.hookupThis = function hookupThis(scope) {
 
 Root.prototype.delete = function _delete() {
     this.value = new model.Cell(null, model.any);
+    this.parent.update(this.value);
     return this.component.enter();
 };
 
