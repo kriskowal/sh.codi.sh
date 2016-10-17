@@ -85,6 +85,10 @@ NumberView.prototype.returnFromReadline = function returnFromReadline(text, curs
     } else {
         this.value.value = +text.replace(/,/g, '');
         this.parent.update(this.value);
+        if (this.parent.canProceed()) {
+            this.blur();
+            return this.parent.proceed();
+        }
     }
     this.focus();
     this.parent.focusChild();

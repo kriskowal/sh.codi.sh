@@ -85,12 +85,18 @@ StringView.prototype.returnFromReadline = function returnFromReadline(text, curs
 };
 
 StringView.prototype.KeyU = function upper() {
+    if (this.value.value == null) {
+        return this;
+    }
     this.value.value = this.value.value.toUpperCase();
     this.draw();
     return this;
 };
 
 StringView.prototype.KeyL = function upper() {
+    if (this.value.value == null) {
+        return this;
+    }
     this.value.value = this.value.value.toLowerCase();
     this.draw();
     return this;

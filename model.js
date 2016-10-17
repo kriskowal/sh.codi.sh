@@ -77,11 +77,11 @@ ArrayModel.prototype.get = function get(array, index) {
 };
 
 exports.Object = ObjectModel;
-function ObjectModel() {
+function ObjectModel(value) {
     this.type = 'object';
     this.view = 'map';
     this.key = exports.string;
-    this.value = exports.any;
+    this.value = value || exports.any;
 }
 ObjectModel.prototype.toJSON = function toJSON(entries) {
     var json = {};
@@ -97,7 +97,27 @@ ObjectModel.prototype.get = function get(index) {
     return this;
 };
 
-// TODO Map
+exports.Map = MapModel;
+function MapModel(key, value) {
+    this.type = 'map';
+    this.view = 'map';
+    this.key = key;
+    this.value = value;
+}
+MapModel.prototype.toJSON = function toJSON(entries) {
+    var json = [];
+    for (var i = 0; i < entries.length; i++) {
+        var entry = entries[i];
+        var key = entry.key.toJSON();
+        var value = entry.value.toJSON();
+        json.push([key, value]);
+    }
+    return json;
+};
+MapModel.prototype.get = function get(index) {
+    return this;
+};
+
 // TODO Enum
 // TODO Tuple
 // TODO Struct

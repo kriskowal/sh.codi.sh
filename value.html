@@ -4,24 +4,25 @@
         <link rel="extends" href="./value">
         <link rel="tag" href="gutentag/text.html">
         <link rel="tag" href="gutentag/choose.html">
-        <link rel="tag" href="gutentag/repeat.html">
         <link rel="tag" href="./number.html">
         <link rel="tag" href="./string.html">
         <link rel="tag" href="./boolean.html">
         <link rel="tag" href="./array.xml">
         <link rel="tag" href="./map.xml">
+        <link rel="tag" href="./type.xml">
         <link rel="tag" href="./mode.html">
-        <meta accepts="[body]" as="parentMode">
+        <meta accepts="[body]" as="arg">
     </head>
     <body>
         <div id="element" class="element">
             <choose id="view">
                 <any><em>no value</em></any>
-                <boolean><boolean id="boolean"><parentMode></parentMode></boolean></boolean>
-                <number><number id="number"><parentMode></parentMode></number></number>
-                <string><string id="string"><parentMode></parentMode></string></string>
-                <array><array id="array"><parentMode></parentMode></array></array>
-                <map><map id="map"><parentMode></parentMode></map></map>
+                <type><type id="type"><arg></arg></type></type>
+                <boolean><boolean id="boolean"><arg></arg></boolean></boolean>
+                <number><number id="number"><arg></arg></number></number>
+                <string><string id="string"><arg></arg></string></string>
+                <array><array id="array"><arg></arg></array></array>
+                <map><map id="map"><arg></arg></map></map>
             </choose>
         </div>
         <mode id="mode">
@@ -29,11 +30,15 @@
             <sp><span class="button"><u>s</u>tring</span> </sp>
             <sp><span class="button"><u>n</u>umber</span> </sp>
             <sp><span class="button"><u>a</u>rray</span> </sp>
+            <sp><span class="button">⇧<u>a</u>rray of…</span> </sp>
+            <sp><span class="button"><u>m</u>ap</span> </sp>
+            <sp><span class="button">⇧<u>m</u>ap of…</span> </sp>
             <sp><span class="button"><u>o</u>bject</span> </sp>
+            <sp><span class="button">⇧<u>d</u>ict</span> </sp>
             <sp><span class="button"><u>t</u>rue</span> </sp>
             <sp><span class="button"><u>f</u>alse</span> </sp>
             <sp><span class="button"><u>p</u>aste</span> </sp>
-            <parentMode></parentMode>
+            <arg></arg>
         </mode>
     </body>
 </html>

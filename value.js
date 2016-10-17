@@ -42,8 +42,9 @@ Value.prototype.hookup = function hookup(id, component, scope) {
         this.view = scope.components.view;
     } else if (id === 'view:any') {
         this.component = null;
-    } else if (id === 'view:null') {
-        this.component = null;
+    } else if (id === 'view:type') {
+        this.component = scope.components.type;
+        this.component.parent = this;
     } else if (id === 'view:string') {
         this.component = scope.components.string;
         this.component.parent = this;
@@ -124,14 +125,37 @@ Value.prototype.KeyA = function () {
 };
 
 Value.prototype.Shift_KeyA = function () {
-    this.value = new model.Cell([], new model.Array(model.string));
+    this.view.value = 'type';
+    this.blur();
+    return this.component.enterArrayOf();
+};
+
+Value.prototype.KeyM = function () {
+    this.value = new model.Cell([], new model.Map(model.any, model.any));
     this.blur();
     return this.component.enter();
+};
+
+Value.prototype.Shift_KeyM = function () {
+    this.view.value = 'type';
+    this.blur();
+    return this.component.enterMapOf();
 };
 
 Value.prototype.KeyO = function () {
     this.value = new model.Cell([], new model.Object());
     this.blur();
+    return this.component.enter();
+};
+
+Value.prototype.Shift_KeyD = function () {
+    this.value = new model.Cell([], new model.Object(model.string));
+    this.blur();
+    return this.component.enter();
+};
+
+Value.prototype.returnFromType = function returnFromType(cell) {
+    this.value = cell;
     return this.component.enter();
 };
 
