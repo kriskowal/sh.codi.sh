@@ -1,0 +1,164 @@
+body {
+  font-family: San Francisco, Lucida Grande, sans serif;
+  font-size: 12pt;
+  background-color: #192629;
+  color: #afc9cf;
+}
+.display {
+  font-family: Input, Monaco, monospace;
+  white-space: pre;
+}
+.readline {
+  font-family: Input, Monaco, monospace;
+  white-space: pre;
+}
+.cursor {
+  color: #192629;
+  background-color: #afc9cf;
+}
+.element {
+  border-left: solid #192629 3ex;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: 2px;
+}
+.element.active {
+  border-color: #afc9cf;
+}
+.element.selected {
+  border-color: #afcfb6;
+}
+.element.selected.active {
+  border-color: #ffffff;
+}
+.nonModeLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  bottom: 40px;
+  z-index: 0;
+}
+.modeLine {
+  position: fixed;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  height: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+}
+.mode {
+  position: absolute;
+  padding-left: 10px;
+  line-height: 40px;
+  height: 40px;
+  top: 40px;
+  left: 0;
+  right: 0;
+  transition: top 500ms;
+  -webkit-transition: top 500ms;
+  background-color: #192629;
+}
+.mode.shown {
+  top: 0;
+}
+.button {
+  cursor: pointer;
+  border: 1px solid #afc9cf;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  white-space: nowrap;
+  background-color: #192629;
+  color: #afc9cf;
+}
+.group {
+  border: 1px solid #afc9cf;
+  background-color: #afc9cf;
+  color: #192629;
+  border-radius: 5px;
+  padding-left: 5px;
+  margin-left: 2.5px;
+}
+.group .button u {
+  color: #ffffff;
+  background-color: #192629;
+  font-weight: bold;
+}
+.group u {
+  color: #192629;
+  background-color: #afc9cf;
+}
+.mapBox {
+  border: solid #afc9cf 3px;
+  border-radius: 1ex;
+}
+.arrayBox {
+  border: solid #afc9cf 3px;
+}
+.structBox {
+  border: solid #afc9cf 3px;
+  border-radius: 1ex;
+}
+.emptyRow {
+  border-top: solid #afc9cf 2px;
+}
+.valueHeader {
+  border-left: solid #afc9cf 2px;
+  padding-left: 2px;
+}
+.valueBox {
+  border-left: solid #afc9cf 2px;
+  padding-left: 2px;
+}
+table {
+  border-collapse: collapse;
+}
+td,
+th {
+  text-align: left;
+  vertical-align: top;
+  margin: 2px;
+  padding: 2px;
+}
+u {
+  text-decoration: none;
+  color: #ffffff;
+}
+.string {
+  color: #cd9f32;
+}
+.number {
+  color: #8f8fef;
+}
+.key {
+  color: #cd9f32;
+}
+.left {
+  padding: 1ex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 50%;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.right {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+}
